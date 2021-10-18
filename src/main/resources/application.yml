@@ -1,0 +1,5 @@
+spring:
+  batch:
+    jdbc:
+      initialize-schema: always
+      table-prefix: batch_

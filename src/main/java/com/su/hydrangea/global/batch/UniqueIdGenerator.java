@@ -1,4 +1,4 @@
-package com.su.hydrangea.batch;
+package com.su.hydrangea.global.batch;
 
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;

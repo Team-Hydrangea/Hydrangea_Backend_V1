@@ -8,13 +8,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "place")
 @Entity
 public class Place {
 
@@ -26,7 +24,7 @@ public class Place {
 
     private double latitude;
 
-    private double longtitude;
+    private double longitude;
 
     @Column(nullable = false)
     private String number;

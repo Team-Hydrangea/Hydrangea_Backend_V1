@@ -9,8 +9,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Embeddable
 public class RegionInfoId implements Serializable {
 

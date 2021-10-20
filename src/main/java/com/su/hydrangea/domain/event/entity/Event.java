@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "event")
 @Entity
 public class Event {
 
@@ -23,7 +22,7 @@ public class Event {
 
     private double latitude;
 
-    private double longtitude;
+    private double longitude;
 
     @Column(nullable = false)
     private String image;

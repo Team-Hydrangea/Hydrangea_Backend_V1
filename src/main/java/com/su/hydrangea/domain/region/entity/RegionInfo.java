@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "region_info")
 @Entity
 public class RegionInfo {
 

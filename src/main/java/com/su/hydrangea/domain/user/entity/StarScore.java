@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "star_score")
 @Entity
 public class StarScore {
 

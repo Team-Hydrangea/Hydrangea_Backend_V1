@@ -1,4 +1,4 @@
-package com.su.hydrangea.global.batch.swagger;
+package com.su.hydrangea.global.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

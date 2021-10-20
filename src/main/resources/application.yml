@@ -1,3 +1,6 @@
+auth:
+  jwt:
+    secret: ${JWT_SECRET:}
 spring:
   batch:
     jdbc:

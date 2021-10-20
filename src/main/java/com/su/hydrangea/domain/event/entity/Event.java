@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(indexName = "place")
+@Entity
 public class Event {
 
     @Id
@@ -38,7 +38,7 @@ public class Event {
     private LocalDate endDate;
 
     @ManyToOne
-    @JoinColumn(name = "regionCode_code")
+    @JoinColumn(name = "region_code_code")
     private RegionCode regionCode;
 
 }

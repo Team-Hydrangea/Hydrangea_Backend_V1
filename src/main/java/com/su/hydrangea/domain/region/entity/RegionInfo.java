@@ -28,7 +28,7 @@ public class RegionInfo {
 
     @ManyToOne
     @MapsId("code")
-    @JoinColumn(name = "regionCode_code")
+    @JoinColumn(name = "region_code_code")
     private RegionCode regionCode;
 
 }

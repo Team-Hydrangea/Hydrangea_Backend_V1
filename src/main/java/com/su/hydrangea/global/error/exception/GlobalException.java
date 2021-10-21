@@ -13,9 +13,4 @@ public class GlobalException extends RuntimeException {
         this.errorCode = errorCode;
     }
 
-    public GlobalException (String message, ErrorCode errorCode) {
-        super(message);
-        this.errorCode = errorCode;
-    }
-
 }

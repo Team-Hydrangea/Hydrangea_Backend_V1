@@ -13,9 +13,4 @@ public class ErrorResponse {
         this.status = errorCode.getStatus();
     }
 
-    public ErrorResponse(int status, String message) {
-        this.message = message;
-        this.status = status;
-    }
-
 }

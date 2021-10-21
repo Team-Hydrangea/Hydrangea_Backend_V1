@@ -1,13 +1,13 @@
 package com.su.hydrangea.global.security;
 
 import com.su.hydrangea.global.error.exception.InvalidTokenException;
-import com.su.hydrangea.global.security.details.Details;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +18,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
-    private final UserDetailsService userLoadService;
+    private final AuthDetailsService userLoadService;
 
     @Value("${auth.jwt.secret}")
     private String secretKey;
@@ -60,7 +60,7 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        Details details = userLoadService.loadById(getId(token));
+        UserDetails details = userLoadService.loadUserByUsername(getId(token));
         return new UsernamePasswordAuthenticationToken(details, "", details.getAuthorities());
     }
 

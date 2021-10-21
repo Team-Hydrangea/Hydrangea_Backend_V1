@@ -1,11 +1,10 @@
 package com.su.hydrangea.global.security;
 
-import com.su.hydrangea.domain.user.entity.User;
 import com.su.hydrangea.domain.user.repository.UserRepository;
-import com.su.hydrangea.global.security.details.UserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,10 +17,8 @@ public class AuthenticationFacade {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
-    public User getUser() {
-        Authentication auth = getAuthentication();
-        User user = ((UserDetails) auth.getPrincipal()).getUser();
-        return userRepository.save(user);
+    public UserDetails getUserDetails() {
+        return (UserDetails) getAuthentication().getDetails();
     }
 
 }

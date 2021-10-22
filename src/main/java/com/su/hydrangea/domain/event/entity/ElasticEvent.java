@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.GeoPointField;
+import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,31 +16,20 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-public class Event {
+@Document(indexName = "event")
+public class ElasticEvent {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
 
-    private double latitude;
+    @GeoPointField
+    private GeoPoint location;
 
-    private double longitude;
-
-    @Column(nullable = false)
     private String image;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
-    @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
-
-    @ManyToOne
-    @JoinColumn(name = "region_code_code")
-    private RegionCode regionCode;
 
 }

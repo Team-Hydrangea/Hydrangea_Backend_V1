@@ -6,31 +6,33 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.GeoPointField;
+import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-public class Place {
+@Document(indexName = "place")
+public class ElasticPlace {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
 
     @Field
     private String name;
 
-    private double latitude;
+    @GeoPointField
+    private GeoPoint location;
 
-    private double longitude;
-
-    @Column(nullable = false)
+    @Field
     private String number;
 
-    @Column(nullable = false)
     private String address;
 
 }
+

@@ -20,8 +20,4 @@ public class AuthenticationFacade {
         return Long.parseLong(getAuthentication().getName());
     }
 
-    public boolean isLogin() {
-        return getAuthentication() != null;
-    }
-
 }

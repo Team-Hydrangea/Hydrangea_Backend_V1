@@ -11,15 +11,13 @@ spring:
     username: ${DB_USERNAME:}
     password: ${DB_PASSWORD:}
     url: ${DB_URL:}
-    jackson:
-      property-naming-strategy: SNAKE_CASE
-    main:
-      allow-bean-definition-overriding: true
-    jpa:
-      generate-ddl: false
-      show-sql: false
-      hibernate:
-        use-new-id-generator-mappings: false
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  jpa:
+    generate-ddl: false
+    show-sql: false
+    hibernate:
+      use-new-id-generator-mappings: false
   elasticsearch:
     rest:
       username: ${ELASTIC_USERNAME}

@@ -53,6 +53,9 @@ dependencies {
 
     // elastic search
     implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+
+    // quartz
+    implementation 'org.springframework.boot:spring-boot-starter-quartz'
 }
 
 test {

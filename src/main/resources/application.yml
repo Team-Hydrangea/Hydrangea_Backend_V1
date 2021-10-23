@@ -2,6 +2,13 @@ auth:
   jwt:
     secret: ${JWT_SECRET:}
 spring:
+  quartz:
+    scheduler-name: quartz_
+    properties:
+      org:
+        quartz:
+          threadPool:
+            threadCound: 10
   batch:
     jdbc:
       initialize-schema: always

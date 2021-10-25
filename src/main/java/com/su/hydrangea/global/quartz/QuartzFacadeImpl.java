@@ -5,7 +5,6 @@ import org.quartz.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
-import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -14,7 +13,7 @@ public class QuartzFacadeImpl implements QuartzFacade {
     private final Scheduler scheduler;
 
     @Override
-    public void addCronJob(Class<?> jobClass, String name, String description, Map<String, Objects> params, String expression) throws SchedulerException {
+    public void addCronJob(Class<?> jobClass, String name, String description, Map<String, Object> params, String expression) throws SchedulerException {
 
         JobDetail jobDetail = buildJobDetail(jobClass, name, description, params);
 
@@ -29,11 +28,11 @@ public class QuartzFacadeImpl implements QuartzFacade {
 
     }
 
-    private JobDetail buildJobDetail(Class job, String name, String desc, Map params) {
+    private JobDetail buildJobDetail(Class jobClass, String name, String desc, Map<String, Object> params) {
         JobDataMap jobDataMap = new JobDataMap();
-        if(params != null) jobDataMap.putAll(params);
+        if (params != null) jobDataMap.putAll(params);
         return JobBuilder
-                .newJob(job)
+                .newJob(jobClass)
                 .withIdentity(name)
                 .withDescription(desc)
                 .usingJobData(jobDataMap)

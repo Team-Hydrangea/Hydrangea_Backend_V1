@@ -1,4 +1,4 @@
-package com.su.hydrangea.domain.user.util.api;
+package com.su.hydrangea.global.feign;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.su.hydrangea.domain.user.exception.OauthServerException;

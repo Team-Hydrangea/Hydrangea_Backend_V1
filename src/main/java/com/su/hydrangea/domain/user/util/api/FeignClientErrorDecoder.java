@@ -18,15 +18,17 @@ public class FeignClientErrorDecoder implements ErrorDecoder {
 
     @Override
     public OauthServerException decode(final String methodKey, Response response) {
-        String message = "Server failed to request oauth server.";
 
-        if (response.body() != null) {
-            try {
-                String json = stringDecoder.decode(response, String.class).toString();
-                message = objectMapper.readValue(json, KakaoErrorResponse.class).getMsg();
-            } catch (IOException e) {
-                log.error(methodKey + "Error Deserializing response body from failed feign request response.", e);
-            }
+        if (response.body() == null) {
+            return new OauthServerException(response.status(), "Server failed to request oauth server.");
+        }
+
+        String message = "";
+        try {
+            String json = stringDecoder.decode(response, String.class).toString();
+            message = objectMapper.readValue(json, KakaoErrorResponse.class).getMsg();
+        } catch (IOException e) {
+            log.error(methodKey + "Error Deserializing response body from failed feign request response.", e);
         }
 
         return new OauthServerException(response.status(), message);

@@ -26,9 +26,4 @@ public class RegionInfo {
 
     private long population;
 
-    @ManyToOne
-    @MapsId("code")
-    @JoinColumn(name = "region_code_code")
-    private RegionCode regionCode;
-
 }

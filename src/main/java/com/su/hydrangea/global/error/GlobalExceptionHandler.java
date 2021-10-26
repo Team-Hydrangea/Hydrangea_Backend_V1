@@ -1,5 +1,6 @@
 package com.su.hydrangea.global.error;
 
+import com.su.hydrangea.domain.user.exception.OauthServerException;
 import com.su.hydrangea.global.error.ErrorCode;
 import com.su.hydrangea.global.error.ErrorResponse;
 import com.su.hydrangea.global.error.exception.GlobalException;
@@ -30,6 +31,13 @@ public class GlobalExceptionHandler {
     protected ResponseEntity<ErrorResponse> handleException(Exception e) {
         e.printStackTrace();
         final ErrorResponse response = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
+    }
+
+    @ExceptionHandler(OauthServerException.class)
+    protected ResponseEntity<ErrorResponse> handleOauthServerException(final OauthServerException e) {
+        e.printStackTrace();
+        final ErrorResponse response = new ErrorResponse(e.getMessage(), e.getStatus());
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 

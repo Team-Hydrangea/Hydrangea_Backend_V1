@@ -1,4 +1,4 @@
-package com.su.hydrangea.domain.event.entity;
+package com.su.hydrangea.domain.restaurant.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,14 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Event {
+public class Restaurant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,15 +23,6 @@ public class Event {
     private double longitude;
 
     @Column(nullable = false)
-    private String image;
-
-    @Column(nullable = false)
-    private String name;
-
-    @Column(name = "start_date", nullable = false)
-    private LocalDate startDate;
-
-    @Column(name = "end_date", nullable = false)
-    private LocalDate endDate;
+    private String number;
 
 }

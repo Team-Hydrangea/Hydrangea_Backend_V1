@@ -16,6 +16,6 @@ public class RegionInfoId implements Serializable {
 
     private LocalDate date;
 
-    private int code;
+    private String name;
 
 }

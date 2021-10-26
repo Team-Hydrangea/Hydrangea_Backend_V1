@@ -1,4 +1,4 @@
-package com.su.hydrangea.domain.user.util.api;
+package com.su.hydrangea.global.feign;
 
 import feign.Logger;
 import org.springframework.context.annotation.Bean;

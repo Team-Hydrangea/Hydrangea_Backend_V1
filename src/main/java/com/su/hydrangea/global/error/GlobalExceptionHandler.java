@@ -1,8 +1,6 @@
 package com.su.hydrangea.global.error;
 
-import com.su.hydrangea.domain.user.exception.OauthServerException;
-import com.su.hydrangea.global.error.ErrorCode;
-import com.su.hydrangea.global.error.ErrorResponse;
+import com.su.hydrangea.global.error.exception.OauthServerException;
 import com.su.hydrangea.global.error.exception.GlobalException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

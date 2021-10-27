@@ -2,7 +2,7 @@ package com.su.hydrangea.global.feign;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.su.hydrangea.domain.user.exception.OauthServerException;
+import com.su.hydrangea.global.error.exception.OauthServerException;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import lombok.extern.slf4j.Slf4j;

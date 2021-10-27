@@ -1,4 +1,4 @@
-package com.su.hydrangea.domain.user.exception;
+package com.su.hydrangea.global.error.exception;
 
 import lombok.Getter;
 

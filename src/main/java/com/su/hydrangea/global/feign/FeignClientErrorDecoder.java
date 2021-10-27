@@ -2,20 +2,18 @@ package com.su.hydrangea.global.feign;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.su.hydrangea.domain.user.exception.OauthServerException;
+import com.su.hydrangea.global.error.exception.FailToCurlException;
 import feign.Response;
 import feign.codec.ErrorDecoder;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class FeignClientErrorDecoder implements ErrorDecoder {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public OauthServerException decode(final String methodKey, Response response) {
+    public FailToCurlException decode(final String methodKey, Response response) {
 
-        String message = "Server failed to request oauth server.";
+        String message = "Server failed to request other server.";
 
         if (response.body() != null) {
             try {
@@ -26,7 +24,7 @@ public class FeignClientErrorDecoder implements ErrorDecoder {
             }
         }
 
-        return new OauthServerException(response.status(), message);
+        return new FailToCurlException(response.status(), message);
     }
 
 }

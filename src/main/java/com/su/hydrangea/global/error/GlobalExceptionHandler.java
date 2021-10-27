@@ -1,6 +1,6 @@
 package com.su.hydrangea.global.error;
 
-import com.su.hydrangea.global.error.exception.OauthServerException;
+import com.su.hydrangea.global.error.exception.FailToCurlException;
 import com.su.hydrangea.global.error.exception.GlobalException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +32,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
-    @ExceptionHandler(OauthServerException.class)
-    protected ResponseEntity<ErrorResponse> handleOauthServerException(final OauthServerException e) {
+    @ExceptionHandler(FailToCurlException.class)
+    protected ResponseEntity<ErrorResponse> handleOauthServerException(final FailToCurlException e) {
         e.printStackTrace();
         final ErrorResponse response = new ErrorResponse(e.getMessage(), e.getStatus());
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));

@@ -13,9 +13,9 @@ public class QuartzFacadeImpl implements QuartzFacade {
     private final Scheduler scheduler;
 
     @Override
-    public void addCronJob(Class<?> jobClass, String name, String description, Map<String, Object> params, String expression) throws SchedulerException {
+    public void addCronJob(Class<?> jobClass, String name, Map<String, Object> params, String expression) throws SchedulerException {
 
-        JobDetail jobDetail = buildJobDetail(jobClass, name, description, params);
+        JobDetail jobDetail = buildJobDetail(jobClass, name, params);
 
         if (scheduler.checkExists(jobDetail.getKey())) {
             scheduler.deleteJob(jobDetail.getKey());
@@ -28,13 +28,12 @@ public class QuartzFacadeImpl implements QuartzFacade {
 
     }
 
-    private JobDetail buildJobDetail(Class jobClass, String name, String desc, Map<String, Object> params) {
+    private JobDetail buildJobDetail(Class jobClass, String name, Map<String, Object> params) {
         JobDataMap jobDataMap = new JobDataMap();
         if (params != null) jobDataMap.putAll(params);
         return JobBuilder
                 .newJob(jobClass)
                 .withIdentity(name)
-                .withDescription(desc)
                 .usingJobData(jobDataMap)
                 .build();
     }

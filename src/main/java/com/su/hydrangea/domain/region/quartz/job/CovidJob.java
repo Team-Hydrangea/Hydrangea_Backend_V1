@@ -47,6 +47,7 @@ public class CovidJob implements Job {
             var vaccinateResponse = vaccinateCovidInformation.getCovidResponse();
             RegionInfo regionInfo = buildRegion(item, getVaccinateCaseCount(vaccinateResponse, item.getGubun()));
             regionInfos.add(regionInfo);
+
         }
 
         regionInfoRepository.saveAll(regionInfos);

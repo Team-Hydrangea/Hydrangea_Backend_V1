@@ -4,11 +4,6 @@ auth:
 spring:
   quartz:
     scheduler-name: quartz_
-    properties:
-      org:
-        quartz:
-          threadPool:
-            threadCound: 10
     jdbc:
       initialize-schema: always
     job-store-type: jdbc

@@ -10,7 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-@FeignClient(url = "http://openapi.data.go.kr", configuration = XmlConfiguration.class)
+@FeignClient(url = "http://openapi.data.go.kr", configuration = XmlConfiguration.class, name = "regionCovidInformation")
 public interface RegionCovidInformation {
 
     @RequestLine("GET /openapi/service/rest/Covid19/getCovid19SidoInfStateJson")

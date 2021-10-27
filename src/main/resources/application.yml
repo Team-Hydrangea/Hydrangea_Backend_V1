@@ -33,3 +33,5 @@ spring:
       username: ${ELASTIC_USERNAME}
       password: ${ELASTIC_PASSWORD}
       uris: ${ELASTIC_URL}
+openapi:
+  secret: ${OPENAPI_SECRET}

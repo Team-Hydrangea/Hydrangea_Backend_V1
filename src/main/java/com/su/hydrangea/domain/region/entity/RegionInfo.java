@@ -21,6 +21,9 @@ public class RegionInfo {
     @Column(name = "confirm_case_count")
     private long confirmCaseCount;
 
+    @Column(name = "dead_case_count")
+    private long deadCaseCount;
+
     @Column(name = "vaccinate_case_count")
     private long vaccinateCaseCount;
 

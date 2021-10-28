@@ -32,7 +32,5 @@ public class ElasticPlace {
     @Field
     private String number;
 
-    private String address;
-
 }
 

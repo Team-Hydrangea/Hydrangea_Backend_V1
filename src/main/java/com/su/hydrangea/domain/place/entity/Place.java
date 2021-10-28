@@ -1,27 +1,36 @@
 package com.su.hydrangea.domain.place.entity;
 
-import com.su.hydrangea.domain.place.entity.id.PlaceId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.*;
+import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Document(indexName = "place")
 public class Place {
 
-    @EmbeddedId
-    private PlaceId id;
+    @Id
+    private String id;
 
-    @Field
-    private String name;
+    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime createdAt;
+
+    private String title;
+
+    private String number;
 
     private String image;
+
+    @GeoPointField
+    private GeoPoint location;
+
 }
+

@@ -1,7 +1,7 @@
 package com.su.hydrangea.domain.region.quartz.job;
 
 import com.su.hydrangea.domain.region.entity.RegionInfo;
-import com.su.hydrangea.domain.region.entity.RegionInfoRepository;
+import com.su.hydrangea.domain.region.repository.RegionInfoRepository;
 import com.su.hydrangea.domain.region.entity.id.RegionInfoId;
 import com.su.hydrangea.domain.region.quartz.outbound.RegionCovidInformation;
 import com.su.hydrangea.domain.region.quartz.outbound.VaccinateCovidInformation;
@@ -13,7 +13,6 @@ import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 

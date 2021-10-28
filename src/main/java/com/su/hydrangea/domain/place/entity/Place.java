@@ -33,4 +33,3 @@ public class Place {
     private GeoPoint location;
 
 }
-

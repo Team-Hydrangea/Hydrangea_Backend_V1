@@ -29,8 +29,5 @@ public class ElasticPlace {
     @GeoPointField
     private GeoPoint location;
 
-    @Field
-    private String number;
-
 }
 

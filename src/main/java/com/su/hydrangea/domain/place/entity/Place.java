@@ -24,8 +24,5 @@ public class Place {
     @Field
     private String name;
 
-    @Column(nullable = false)
-    private String number;
-
     private String image;
 }

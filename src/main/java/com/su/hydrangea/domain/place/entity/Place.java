@@ -30,7 +30,4 @@ public class Place {
     @Column(nullable = false)
     private String number;
 
-    @Column(nullable = false)
-    private String address;
-
 }

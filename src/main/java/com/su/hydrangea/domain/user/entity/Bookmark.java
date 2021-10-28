@@ -20,7 +20,10 @@ public class Bookmark {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "place_id", nullable = false)
+    @JoinColumns({
+            @JoinColumn(name = "place_latitude", nullable = false),
+            @JoinColumn(name = "place_longtitude", nullable = false)
+    })
     private Place place;
 
     @ManyToOne

@@ -1,6 +1,7 @@
 package com.su.hydrangea.domain.user.controller;
 
 import com.su.hydrangea.domain.user.dto.BookmarkAddDto;
+import com.su.hydrangea.domain.user.dto.BookmarkDeleteDto;
 import com.su.hydrangea.domain.user.service.BookmarkService;
 import com.su.hydrangea.global.security.AuthenticationFacade;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,12 @@ public class BookmarkController {
     @ResponseStatus(HttpStatus.CREATED)
     public void addBookmark(@RequestBody BookmarkAddDto.Request request) {
         bookmarkService.addBookmark(request,authenticationFacade.getId());
+    }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBookmark(@RequestBody BookmarkDeleteDto.Request request) {
+        bookmarkService.deleteBookmark(request,authenticationFacade.getId());
     }
 
 }

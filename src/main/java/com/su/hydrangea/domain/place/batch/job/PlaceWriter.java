@@ -1,6 +1,6 @@
 package com.su.hydrangea.domain.place.batch.job;
 
-import com.su.hydrangea.domain.place.entity.ElasticPlaceRepository;
+import com.su.hydrangea.domain.place.repository.ElasticPlaceRepository;
 import com.su.hydrangea.domain.place.entity.Place;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.configuration.annotation.StepScope;

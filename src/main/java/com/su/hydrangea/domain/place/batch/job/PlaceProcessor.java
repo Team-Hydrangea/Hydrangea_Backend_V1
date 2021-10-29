@@ -24,7 +24,6 @@ public class PlaceProcessor implements ItemProcessor<PlaceResponse.PlaceInformat
                         .latitude(item.getMapY().doubleValue())
                         .longitude(item.getMapX().doubleValue())
                         .title(item.getTitle())
-                        .createdAt(item.getCreatedtime())
                         .image(item.getFirstimage())
                         .number(item.getTel())
                         .build())

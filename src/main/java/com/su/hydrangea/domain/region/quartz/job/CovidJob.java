@@ -3,8 +3,8 @@ package com.su.hydrangea.domain.region.quartz.job;
 import com.su.hydrangea.domain.region.entity.RegionInfo;
 import com.su.hydrangea.domain.region.entity.RegionInfoRepository;
 import com.su.hydrangea.domain.region.entity.id.RegionInfoId;
-import com.su.hydrangea.domain.region.quartz.outbound.RegionCovidInformation;
-import com.su.hydrangea.domain.region.quartz.outbound.VaccinateCovidInformation;
+import com.su.hydrangea.domain.region.outbound.RegionCovidClient;
+import com.su.hydrangea.domain.region.outbound.VaccinateCovidClient;
 import com.su.hydrangea.domain.region.quartz.payload.CovidResponse;
 import com.su.hydrangea.domain.region.quartz.payload.VaccinateResponse;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +24,8 @@ public class CovidJob implements Job {
     private static final String TOTAL_NAME = "합계";
     private static final String FOREIGN_NAME = "검역";
 
-    private final RegionCovidInformation regionCovidInformation;
-    private final VaccinateCovidInformation vaccinateCovidInformation;
+    private final RegionCovidClient regionCovidClient;
+    private final VaccinateCovidClient vaccinateCovidClient;
     private final RegionInfoRepository regionInfoRepository;
 
     @Value("${openapi.secret}")
@@ -34,7 +34,7 @@ public class CovidJob implements Job {
     @Override
     public void execute(JobExecutionContext context) {
         LocalDate now = LocalDate.now();
-        var response = regionCovidInformation.getCovidCount(secretKey, NUM_OF_ROWS, now, now);
+        var response = regionCovidClient.getCovidCount(secretKey, NUM_OF_ROWS, now, now);
 
         List<RegionInfo> regionInfos = new ArrayList<>();
 
@@ -44,7 +44,7 @@ public class CovidJob implements Job {
                 continue;
             }
 
-            var vaccinateResponse = vaccinateCovidInformation.getCovidResponse();
+            var vaccinateResponse = vaccinateCovidClient.getCovidResponse();
             RegionInfo regionInfo = buildRegion(item, getVaccinateCaseCount(vaccinateResponse, item.getGubun()));
             regionInfos.add(regionInfo);
 

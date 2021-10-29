@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.List;
 
 public class EventDto {
 
@@ -34,6 +35,18 @@ public class EventDto {
     @AllArgsConstructor
     @ApiModel(value = "축제/공연/행사 리스트 가져오기 response", description = "축제/공연/행사 리스트 가져오기 response")
     public static class Response {
+
+        @ApiModelProperty(value = "총 요소 개수", example = "100")
+        private long totalElements;
+
+        private List<Content> content;
+
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @ApiModel(value = "축제/공연/행사 리스트", description = "축제/공연/행사 리스트")
+    public static class Content {
 
         @ApiModelProperty(value = "축제 이름", example = "백두산 축제")
         private String name;

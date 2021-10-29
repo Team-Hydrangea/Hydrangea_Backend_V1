@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                         "/token-refresh",
                         "/event/**",
                         "/place/**",
-                        "/region**"
+                        "/region/**"
                 ).permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling()

@@ -16,19 +16,15 @@ public class EventDto {
     @ApiModel(value = "축제/공연/행사 리스트 가져오기 request", description = "축제/공연/행사 리스트 가져오기 request")
     public static class Request {
 
-        @NotBlank
         @ApiModelProperty(value = "위도1", example = "33.3333")
         private double latitude1;
 
-        @NotBlank
         @ApiModelProperty(value = "경도1", example = "123.3333")
         private double longitude1;
 
-        @NotBlank
         @ApiModelProperty(value = "위도2", example = "33.3333")
         private double latitude2;
 
-        @NotBlank
         @ApiModelProperty(value = "경도2", example = "123.3333")
         private double longitude2;
 

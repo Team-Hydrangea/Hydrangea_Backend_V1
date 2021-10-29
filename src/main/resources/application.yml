@@ -32,6 +32,6 @@ spring:
       password: ${ELASTIC_PASSWORD}
       uris: ${ELASTIC_URL}
 openapi:
-  secret: H737J9D1dQ%2FX5iNhLLRIB58b3X7oDZh5daWqcIw2yF8U75pqSztkOygiAmWnguKJBCoQylxgNcYXEEkOUif3mA%3D%3D
+  secret: ${OPENAPI_SECRET}
   kkyeongki:
-    secret: 1524deabed384334ba9d4bc44fe34066
+    secret: ${KKYEONGKI_SECRET}

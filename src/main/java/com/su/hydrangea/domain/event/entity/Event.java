@@ -1,31 +1,33 @@
 package com.su.hydrangea.domain.event.entity;
 
-import com.su.hydrangea.domain.event.entity.id.EventId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.GeoPointField;
+import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Document(indexName = "event")
 public class Event {
 
-    @EmbeddedId
-    private EventId id;
+    private String id;
 
-    @Column(nullable = false)
+    @GeoPointField
+    private GeoPoint location;
+
     private String image;
 
-    @Column(name = "start_date", nullable = false)
+    private String name;
+
     private LocalDate startDate;
 
-    @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
 }

@@ -10,17 +10,18 @@ import com.su.hydrangea.domain.region.quartz.payload.PopulationResponse;
 import com.su.hydrangea.domain.region.quartz.payload.VaccinateResponse;
 import com.su.hydrangea.domain.region.repository.RegionInfoRepository;
 import lombok.RequiredArgsConstructor;
-import org.quartz.Job;
-import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 @RequiredArgsConstructor
-public class CovidJob implements Job {
+public class CovidJob {
 
     private static final Integer NUM_OF_ROWS = 10000;
     private static final String TOTAL_NAME = "합계";
@@ -34,8 +35,9 @@ public class CovidJob implements Job {
     @Value("${openapi.secret}")
     private String secretKey;
 
-    @Override
-    public void execute(JobExecutionContext context) {
+    @Scheduled(cron = "0 0 3 * * ?")
+    public void execute() {
+        regionInfoRepository.deleteAll();
         LocalDate now = LocalDate.now();
         var vaccinateResponse = vaccinateCovidClient.getCovidResponse();
         var covidResponse = regionCovidClient.getCovidCount(secretKey, NUM_OF_ROWS, now, now);

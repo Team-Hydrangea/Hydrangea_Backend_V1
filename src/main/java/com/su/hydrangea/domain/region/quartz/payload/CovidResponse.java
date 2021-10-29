@@ -3,9 +3,10 @@ package com.su.hydrangea.domain.region.quartz.payload;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 public class CovidResponse {
@@ -13,72 +14,47 @@ public class CovidResponse {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
+    @XmlRootElement(name = "response")
     public static class CovidInformation {
+        @XmlElement(name = "body")
         private Body body;
 
-        private Head head;
     }
 
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
+    @XmlRootElement(name = "body")
     public static class Body {
 
+        @XmlElementWrapper
+        @XmlElement(name = "item")
         private List<Item> items;
-
-        private Integer numOfRows;
 
         private Integer pageNo;
 
-        private Integer totalCount;
-
     }
 
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Head {
-
-        private int resultCode;
-
-        private String resultMsg;
-
-    }
-
-    @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
+    @XmlRootElement(name = "item")
     public static class Item {
 
-        @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:SS")
-        private LocalDateTime createDt;
+        @XmlElement(name = "updateDt")
+        private String updateDt;
 
-        @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:SS")
-        private LocalDateTime updateDt;
+        @XmlElement(name = "createDt")
+        private String createDt;
 
+        @XmlElement(name = "deathCnt")
         private Integer deathCnt;
 
+        @XmlElement(name = "defCnt")
         private Integer defCnt;
 
+        @XmlElement(name = "gubun")
         private String gubun;
-
-        private String gubunCn;
-
-        private String gubunEn;
-
-        private Integer incDec;
-
-        private Integer isolClearCnt;
-
-        private Integer localOccCnt;
-
-        private Integer overFlowCnt;
-
-        private Integer qurRate;
-
-        private Integer seq;
-
-        private String stdDay;
 
     }
 

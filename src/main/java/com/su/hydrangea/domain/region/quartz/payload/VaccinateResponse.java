@@ -3,9 +3,10 @@ package com.su.hydrangea.domain.region.quartz.payload;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 public class VaccinateResponse {
@@ -13,8 +14,10 @@ public class VaccinateResponse {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
+    @XmlRootElement(name = "response")
     public static class VaccinateInformation {
 
+        @XmlElement(name = "body")
         private Body body;
 
     }
@@ -24,10 +27,10 @@ public class VaccinateResponse {
     @AllArgsConstructor
     public static class Body {
 
-        @DateTimeFormat(pattern = "yyyy.MM.dd hh:MM:ss")
-        private LocalDateTime dateTime;
-
+        @XmlElementWrapper
+        @XmlElement(name = "item")
         private List<Item> items;
+
     }
 
     @Getter
@@ -35,19 +38,11 @@ public class VaccinateResponse {
     @AllArgsConstructor
     public static class Item {
 
+        @XmlElement(name = "sidoNm")
         private String sidoNm;
 
-        private Integer firstCnt;
-
+        @XmlElement(name = "firstTot")
         private Integer firstTot;
-
-        private Integer secondCnt;
-
-        private Integer secondTot;
-
-        private Integer thirdCnt;
-
-        private Integer thirdTot;
 
     }
 

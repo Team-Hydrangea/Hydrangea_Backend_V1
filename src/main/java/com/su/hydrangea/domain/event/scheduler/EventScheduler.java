@@ -25,7 +25,7 @@ public class EventScheduler {
     @Value("${openapi.secret}")
     private String secretKey;
 
-    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(cron = "0 0 3 * * ?")
     public void saveEvent() {
         repository.deleteAll();
         LocalDate now = LocalDate.now();

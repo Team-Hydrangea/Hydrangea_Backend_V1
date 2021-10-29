@@ -21,7 +21,7 @@ public class SavePlace {
     @Value("${openapi.secret}")
     private String secret;
 
-    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(cron = "0 0 3 * * ?")
     public void savePlaceList() {
         repository.deleteAll();
         for (int i = 0; i < 10; i++) {

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 
@@ -11,18 +12,18 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Document(indexName = "restaurant")
 public class Restaurant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
+
+    private String name;
 
     private double latitude;
 
     private double longitude;
 
-    @Column(nullable = false)
     private String number;
 
 }

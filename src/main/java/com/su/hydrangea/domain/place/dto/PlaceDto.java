@@ -1,5 +1,6 @@
 package com.su.hydrangea.domain.place.dto;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +12,7 @@ public class PlaceDto {
 
     @Getter
     @NoArgsConstructor
+    @ApiModel(value = "관광지 리스트 가져오기 request", description = "관광지 리스트 가져오기 request")
     public static class Request {
 
         @NotBlank
@@ -33,6 +35,7 @@ public class PlaceDto {
 
     @Getter
     @AllArgsConstructor
+    @ApiModel(value = "관광지 리스트 가져오기 response", description = "관광지 리스트 가져오기 response")
     public static class Response {
 
         @ApiModelProperty(value = "관광지 이름", example = "백두산")

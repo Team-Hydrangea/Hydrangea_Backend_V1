@@ -31,7 +31,7 @@ public class PlaceReader implements ItemReader<PlaceResponse.PlaceInformation> {
     private void setPage() {
         if (isFirst()) {
             page = 1;
-        } else if (hasMorePage(placeInformation)) {
+        } else if (hasMorePage()) {
             page++;
         } else {
             page = 0;
@@ -46,8 +46,8 @@ public class PlaceReader implements ItemReader<PlaceResponse.PlaceInformation> {
         return placeClient.getTourInformation(secret, 100, page, "ETC", "test");
     }
 
-    private boolean hasMorePage(PlaceResponse.PlaceInformation information) {
-        return placeInformation.getBody().getPageNo() > page;
+    private boolean hasMorePage() {
+        return placeInformation.getBody().getPageNo() >= page;
     }
 
 }

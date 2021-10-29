@@ -38,7 +38,7 @@ public class CovidJob {
     @Scheduled(cron = "0 0 3 * * ?")
     public void execute() {
         regionInfoRepository.deleteAll();
-        LocalDate now = LocalDate.now();
+        LocalDate now = LocalDate.now().minusDays(1);
         var vaccinateResponse = vaccinateCovidClient.getCovidResponse();
         var covidResponse = regionCovidClient.getCovidCount(secretKey, NUM_OF_ROWS, now, now);
         var populationResponse = populationClient.getPopulation();

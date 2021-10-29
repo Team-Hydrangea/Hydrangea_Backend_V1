@@ -1,13 +1,14 @@
 package com.su.hydrangea.domain.place.entity;
 
+import com.su.hydrangea.domain.place.entity.id.PlaceId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 
-import javax.persistence.*;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 
 @Getter
 @Builder
@@ -16,21 +17,11 @@ import javax.persistence.*;
 @Entity
 public class Place {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @EmbeddedId
+    private PlaceId id;
 
     @Field
     private String name;
 
-    private double latitude;
-
-    private double longitude;
-
-    @Column(nullable = false)
-    private String number;
-
-    @Column(nullable = false)
-    private String address;
-
+    private String image;
 }

@@ -4,11 +4,6 @@ auth:
 spring:
   quartz:
     scheduler-name: quartz_
-    properties:
-      org:
-        quartz:
-          threadPool:
-            threadCound: 10
     jdbc:
       initialize-schema: always
     job-store-type: jdbc
@@ -16,6 +11,8 @@ spring:
     jdbc:
       initialize-schema: always
       table-prefix: batch_
+    job:
+      enabled: false
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     username: ${DB_USERNAME:}

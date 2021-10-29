@@ -14,7 +14,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,12 +59,8 @@ public class CovidJob {
     }
 
     private RegionInfo buildRegion(CovidResponse.Item item, Integer vaccinateCount, Long population) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String date = item.getUpdateDt().equals("null") ? item.getCreateDt().substring(0, 10) : item.getUpdateDt().substring(0, 10);
-        LocalDate updateDt = LocalDate.parse(date, formatter);
-
         return RegionInfo.builder()
-                .name(item.getGubun())
+                .name(convertToFull(item.getGubun()))
                 .confirmCaseCount(item.getDefCnt())
                 .vaccinateCaseCount(vaccinateCount)
                 .deadCaseCount(item.getDeathCnt())
@@ -79,27 +74,37 @@ public class CovidJob {
 
     private Integer getVaccinateCaseCount(VaccinateResponse.VaccinateInformation information, String gubun) {
         return information.getBody().getItems().stream()
-                .filter(item -> sidoIsSame(gubun, item.getSidoNm()))
+                .filter(item -> convertToFull(gubun).equals(item.getCityName()))
                 .findFirst().get()
                 .getFirstTot();
     }
 
     private Long getPopulation(PopulationResponse.PopulationInformation information, String gubun) {
         return information.getInformationList().stream()
-                .filter(item -> sidoIsSame(gubun, item.getCityName()))
+                .filter(item -> convertToFull(gubun).equals(item.getCityName()))
                 .findFirst().get()
                 .getPopulation();
     }
 
-    private boolean sidoIsSame(String gubun, String sido) {
+    private String convertToFull(String gubun) {
         return switch (gubun) {
-            case "경남" -> sido.equals("경상남도");
-            case "경북" -> sido.equals("경상북도");
-            case "충북" -> sido.equals("충청북도");
-            case "충남" -> sido.equals("충청남도");
-            case "전북" -> sido.equals("전라북도");
-            case "전남" -> sido.equals("전라남도");
-            default -> sido.startsWith(gubun);
+            case "경남" -> "경상남도";
+            case "경북" -> "경상북도";
+            case "충북" -> "충청북도";
+            case "충남" -> "충청남도";
+            case "전북" -> "전라북도";
+            case "전남" -> "전라남도";
+            case "서울" -> "서울특별시";
+            case "대전" -> "대전광역시";
+            case "부산" -> "부산광역시";
+            case "세종" -> "세종특별자치시";
+            case "울산" -> "울산광역시";
+            case "대구" -> "대구광역시";
+            case "인천" -> "인천광역시";
+            case "경기" -> "경기도";
+            case "강원" -> "강원도";
+            case "제주" -> "제주특별자치도";
+            case "광주" -> "광주광역시";
         };
     }
 

@@ -74,7 +74,7 @@ public class CovidJob {
 
     private Integer getVaccinateCaseCount(VaccinateResponse.VaccinateInformation information, String gubun) {
         return information.getBody().getItems().stream()
-                .filter(item -> convertToFull(gubun).equals(item.getCityName()))
+                .filter(item -> convertToFull(gubun).equals(item.getSidoNm()))
                 .findFirst().get()
                 .getFirstTot();
     }

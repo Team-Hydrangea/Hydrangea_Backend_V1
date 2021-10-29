@@ -20,18 +20,27 @@ public class RegionService {
 
     public SafeRegionDto.Response getSafeRegion() {
         RegionInfo regionInfo = customRegionRepository.getSafeRandomRegion();
-        return new SafeRegionDto.Response(regionInfo.getId().getName());
+        return new SafeRegionDto.Response(regionInfo.getName());
     }
 
-    public RegionInfoDto.Response getRegionInfo() {
+    public List<RegionInfoDto.Response> getRegionInfo() {
 
-//        return regionInfoRepository.findAll().stream()
-//                .map(regionInfo -> {
-//                    return new RegionInfoDto(
-//                            regionInfo.getId().getName(),
-//
-//                    )
-//                }).collect(Collectors.toList());
+        return regionInfoRepository.findAll().stream()
+                .map(regionInfo -> {
+                    long confirmCaseCount = regionInfo.getConfirmCaseCount();
+                    long vaccinateCaseCount = regionInfo.getVaccinateCaseCount();
+                    long population = regionInfo.getPopulation();
+                    double score =
+                            ((double)vaccinateCaseCount/(double)population)*20 +
+                                    ((double)(population-30*(5*regionInfo.getDeadCaseCount() + confirmCaseCount)))/population*80;
+                    return new RegionInfoDto.Response(
+                            regionInfo.getName(),
+                            confirmCaseCount,
+                            vaccinateCaseCount,
+                            population,
+                            score
+                    );
+                }).collect(Collectors.toList());
 
     }
 }

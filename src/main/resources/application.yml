@@ -23,6 +23,9 @@ spring:
   jpa:
     generate-ddl: false
     show-sql: false
+    properties:
+      hibernate.order_inserts: true
+      hibernate.order_updates: true
   elasticsearch:
     rest:
       username: ${ELASTIC_USERNAME}

@@ -16,19 +16,19 @@ public class PlaceDto {
     public static class Request {
 
         @NotBlank
-        @ApiModelProperty(value = "장소1_위도", example = "33.3333")
+        @ApiModelProperty(value = "위도1", example = "33.3333")
         private double latitude1;
 
         @NotBlank
-        @ApiModelProperty(value = "장소1_경도", example = "123.3333")
+        @ApiModelProperty(value = "경도1", example = "123.3333")
         private double longitude1;
 
         @NotBlank
-        @ApiModelProperty(value = "장소2_위도", example = "33.3333")
+        @ApiModelProperty(value = "위도2", example = "33.3333")
         private double latitude2;
 
         @NotBlank
-        @ApiModelProperty(value = "장소2_경도", example = "123.3333")
+        @ApiModelProperty(value = "경도2", example = "123.3333")
         private double longitude2;
 
     }
@@ -46,6 +46,12 @@ public class PlaceDto {
 
         @ApiModelProperty(value = "관광지 이미지", example = "모름 대충 사진 url")
         private String image;
+
+        @ApiModelProperty(value = "관광지 위도", example = "33.3333")
+        private double latitude;
+
+        @ApiModelProperty(value = "관광지 경도", example = "123.3333")
+        private double longitude;
 
     }
 

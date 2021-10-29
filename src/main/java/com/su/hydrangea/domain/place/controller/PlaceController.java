@@ -20,7 +20,7 @@ public class PlaceController {
     private final PlaceService placeService;
 
     @GetMapping
-    @ApiOperation(value = "좌표 안에 있는 관광지", notes = "입력한 좌표 안에 있는 관광지 리스트를 안전 지수가 높은 순서로 가져옵니다")
+    @ApiOperation(value = "좌표 안에 있는 관광지", notes = "입력한 좌표 안에 있는 관광지 리스트를 가져옵니다")
     public List<PlaceDto.Response> getPlaceList(@Valid @RequestBody PlaceDto.Request request) {
         return placeService.getPlaceList(request);
     }

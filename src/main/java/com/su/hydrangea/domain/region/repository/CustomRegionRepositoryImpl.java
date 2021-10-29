@@ -23,11 +23,11 @@ public class CustomRegionRepositoryImpl {
                         ).divide(regionInfo.population).multiply(80))
                         .gt(
                                 JPAExpressions.select(
-                                        (regionInfo.vaccinateCaseCount.divide(regionInfo.population).multiply(20))
+                                                ((regionInfo.vaccinateCaseCount.divide(regionInfo.population).multiply(20))
                                                 .add(regionInfo.population.subtract(regionInfo.deadCaseCount
                                                         .multiply(5).add(regionInfo.confirmCaseCount)
-                                                ).divide(regionInfo.population).multiply(80).max()
-                                        ))
+                                                ).divide(regionInfo.population).multiply(80)
+                                        )).max().divide(5))
                                         .from(regionInfo)
                         ))
                  .orderBy(NumberExpression.random().asc())

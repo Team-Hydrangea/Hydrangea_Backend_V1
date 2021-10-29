@@ -1,4 +1,4 @@
-package com.su.hydrangea.domain.region.quartz.outbound;
+package com.su.hydrangea.domain.region.outbound;
 
 import com.su.hydrangea.domain.region.quartz.payload.CovidResponse;
 import com.su.hydrangea.global.feign.XmlConfiguration;
@@ -11,10 +11,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
 @FeignClient(url = "http://openapi.data.go.kr", configuration = XmlConfiguration.class, name = "regionCovidInformation")
-public interface RegionCovidInformation {
+public interface RegionCovidClient {
 
     @RequestLine("GET /openapi/service/rest/Covid19/getCovid19SidoInfStateJson")
-    CovidResponse.CovidInformation getCovidCount(@Param("ServiceKey") @Value("${openapi.secret}") String serviceKey,
+    CovidResponse.CovidInformation getCovidCount(@Param("ServiceKey") String serviceKey,
                                 @Param("numOfRows") int numOfRows,
                                 @Param("startCreateDt") @DateTimeFormat(pattern = "yyyyMMdd") LocalDate startCreateDt,
                                 @Param("endCreateDt") @DateTimeFormat(pattern = "yyyyMMdd") LocalDate endCreateDt);

@@ -10,15 +10,6 @@ public class KakaoUserInfo {
     public static class Response {
 
         private long id;
-        private Properties properties;
-
-    }
-
-    @Getter
-    @NoArgsConstructor
-    public static class Properties {
-
-        private String nickname;
 
     }
 

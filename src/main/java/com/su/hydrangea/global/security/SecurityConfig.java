@@ -33,8 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                         "/swagger-resources/**",
                         "/login",
                         "/token-refresh",
-                        "/event**",
-                        "/place**",
+                        "/event/**",
+                        "/place/**",
                         "/region**"
                 ).permitAll()
                 .anyRequest().authenticated()

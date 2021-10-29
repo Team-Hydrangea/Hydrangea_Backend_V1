@@ -17,7 +17,7 @@ public class PlaceService {
     private final ElasticPlaceRepository placeRepository;
 
     public List<PlaceDto.Response> getPlaceList(PlaceDto.Request request) {
-        List<Place> placeList = placeRepository.findByLocationLatBetweenAndLocationLon(
+        List<Place> placeList = placeRepository.findByLatitudeBetweenAndLongitudeBetween(
                 request.getLatitude1(),
                 request.getLatitude2(),
                 request.getLongitude1(),
@@ -25,13 +25,12 @@ public class PlaceService {
 
         return placeList.stream().map(
                 place -> {
-                    GeoPoint geoPoint = place.getLocation();
                     return new PlaceDto.Response(
                             place.getTitle(),
                             place.getNumber(),
                             place.getImage(),
-                            geoPoint.getLat(),
-                            geoPoint.getLon()
+                            place.getLatitude(),
+                            place.getLongitude()
                     );
                 }
         ).collect(Collectors.toList());

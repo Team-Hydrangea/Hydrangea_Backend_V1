@@ -20,7 +20,7 @@ public class EventService {
     private final EventRepository eventRepository;
 
     public List<EventDto.Response> getEventList(@Valid @RequestBody EventDto.Request request) {
-        List<Event> eventList = eventRepository.findByLocationLatBetweenAndLocationLon(
+        List<Event> eventList = eventRepository.findByLatitudeBetweenAndLongitudeBetween(
                 request.getLatitude1(),
                 request.getLatitude2(),
                 request.getLongitude1(),
@@ -28,12 +28,11 @@ public class EventService {
 
         return eventList.stream().map(
                 event -> {
-                    GeoPoint geoPoint = event.getLocation();
                     return new EventDto.Response(
                             event.getName(),
                             event.getImage(),
-                            geoPoint.getLat(),
-                            geoPoint.getLon(),
+                            event.getLatitude(),
+                            event.getLongitude(),
                             event.getStartDate(),
                             event.getEndDate()
                     );

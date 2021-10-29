@@ -1,7 +1,6 @@
 package com.su.hydrangea.domain.region.quartz.job;
 
 import com.su.hydrangea.domain.region.entity.RegionInfo;
-import com.su.hydrangea.domain.region.entity.id.RegionInfoId;
 import com.su.hydrangea.domain.region.outbound.PopulationClient;
 import com.su.hydrangea.domain.region.outbound.RegionCovidClient;
 import com.su.hydrangea.domain.region.outbound.VaccinateCovidClient;
@@ -38,7 +37,7 @@ public class CovidJob {
     @Scheduled(cron = "0 0 3 * * ?")
     public void execute() {
         regionInfoRepository.deleteAll();
-        LocalDate now = LocalDate.now();
+        LocalDate now = LocalDate.now().minusDays(1);
         var vaccinateResponse = vaccinateCovidClient.getCovidResponse();
         var covidResponse = regionCovidClient.getCovidCount(secretKey, NUM_OF_ROWS, now, now);
         var populationResponse = populationClient.getPopulation();
@@ -65,10 +64,8 @@ public class CovidJob {
         String date = item.getUpdateDt().equals("null") ? item.getCreateDt().substring(0, 10) : item.getUpdateDt().substring(0, 10);
         LocalDate updateDt = LocalDate.parse(date, formatter);
 
-        RegionInfoId id = new RegionInfoId(updateDt, item.getGubun());
-
         return RegionInfo.builder()
-                .id(id)
+                .name(item.getGubun())
                 .confirmCaseCount(item.getDefCnt())
                 .vaccinateCaseCount(vaccinateCount)
                 .deadCaseCount(item.getDeathCnt())

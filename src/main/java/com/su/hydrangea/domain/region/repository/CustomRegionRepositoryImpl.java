@@ -17,8 +17,8 @@ public class CustomRegionRepositoryImpl {
         return query.selectFrom(regionInfo)
                 .where()
                 .orderBy((regionInfo.vaccinateCaseCount.divide(regionInfo.population).multiply(20))
-                        .add(regionInfo.population.subtract(regionInfo.deadCaseCount
-                                .multiply(5).add(regionInfo.confirmCaseCount)
+                        .add(regionInfo.population.subtract((regionInfo.deadCaseCount
+                                .multiply(5).add(regionInfo.confirmCaseCount)).multiply(30)
                         ).divide(regionInfo.population).multiply(80)).asc())
                 .offset((int)((Math.random()*10)%5))
                 .limit(1)

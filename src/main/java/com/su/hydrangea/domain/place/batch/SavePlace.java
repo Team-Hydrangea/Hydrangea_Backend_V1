@@ -21,8 +21,9 @@ public class SavePlace {
     @Value("${openapi.secret}")
     private String secret;
 
-    @Scheduled(cron = "0 0 3 * * ?")
+    @Scheduled(cron = "0 * * * * ?")
     public void savePlaceList() {
+        repository.deleteAll();
         for (int i = 0; i < 10; i++) {
             var response = placeClient.getTourInformation(secret, 100, i, "ETC", "test");
             var places = response.getBody()

@@ -105,6 +105,7 @@ public class CovidJob {
             case "강원" -> "강원도";
             case "제주" -> "제주특별자치도";
             case "광주" -> "광주광역시";
+            default -> "클남";
         };
     }
 

@@ -2,9 +2,11 @@ package com.su.hydrangea.domain.region.quartz.job;
 
 import com.su.hydrangea.domain.region.entity.RegionInfo;
 import com.su.hydrangea.domain.region.entity.id.RegionInfoId;
+import com.su.hydrangea.domain.region.outbound.PopulationClient;
 import com.su.hydrangea.domain.region.outbound.RegionCovidClient;
 import com.su.hydrangea.domain.region.outbound.VaccinateCovidClient;
 import com.su.hydrangea.domain.region.quartz.payload.CovidResponse;
+import com.su.hydrangea.domain.region.quartz.payload.PopulationResponse;
 import com.su.hydrangea.domain.region.quartz.payload.VaccinateResponse;
 import com.su.hydrangea.domain.region.repository.RegionInfoRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,7 @@ public class CovidJob implements Job {
     private final RegionCovidClient regionCovidClient;
     private final VaccinateCovidClient vaccinateCovidClient;
     private final RegionInfoRepository regionInfoRepository;
+    private final PopulationClient populationClient;
 
     @Value("${openapi.secret}")
     private String secretKey;
@@ -35,17 +38,18 @@ public class CovidJob implements Job {
     public void execute(JobExecutionContext context) {
         LocalDate now = LocalDate.now();
         var vaccinateResponse = vaccinateCovidClient.getCovidResponse();
-        var response = regionCovidClient.getCovidCount(secretKey, NUM_OF_ROWS, now, now);
+        var covidResponse = regionCovidClient.getCovidCount(secretKey, NUM_OF_ROWS, now, now);
+        var populationResponse = populationClient.getPopulation();
 
         List<RegionInfo> regionInfos = new ArrayList<>();
 
-        for (CovidResponse.Item item : response.getBody().getItems()) {
+        for (CovidResponse.Item item : covidResponse.getBody().getItems()) {
 
             if (isForeignOrTotal(item.getGubun())) {
                 continue;
             }
-
-            RegionInfo regionInfo = buildRegion(item, getVaccinateCaseCount(vaccinateResponse, item.getGubun()));
+            Long population = getPopulation(populationResponse, item.getGubun());
+            RegionInfo regionInfo = buildRegion(item, getVaccinateCaseCount(vaccinateResponse, item.getGubun()), population);
             regionInfos.add(regionInfo);
 
         }
@@ -54,7 +58,7 @@ public class CovidJob implements Job {
 
     }
 
-    private RegionInfo buildRegion(CovidResponse.Item item, Integer vaccinateCount) {
+    private RegionInfo buildRegion(CovidResponse.Item item, Integer vaccinateCount, Long population) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String date = item.getUpdateDt().equals("null") ? item.getCreateDt().substring(0, 10) : item.getUpdateDt().substring(0, 10);
         LocalDate updateDt = LocalDate.parse(date, formatter);
@@ -66,7 +70,7 @@ public class CovidJob implements Job {
                 .confirmCaseCount(item.getDefCnt())
                 .vaccinateCaseCount(vaccinateCount)
                 .deadCaseCount(item.getDeathCnt())
-                .population(10)
+                .population(population)
                 .build();
     }
 
@@ -79,6 +83,13 @@ public class CovidJob implements Job {
                 .filter(item -> sidoIsSame(gubun, item.getSidoNm()))
                 .findFirst().get()
                 .getFirstTot();
+    }
+
+    private Long getPopulation(PopulationResponse.PopulationInformation information, String gubun) {
+        return information.getInformationList().stream()
+                .filter(item -> sidoIsSame(gubun, item.getCityName()))
+                .findFirst().get()
+                .getPopulation();
     }
 
     private boolean sidoIsSame(String gubun, String sido) {

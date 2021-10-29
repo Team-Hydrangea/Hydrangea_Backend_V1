@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.math.BigDecimal;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,22 +16,11 @@ public class PlaceResponse {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
+    @XmlRootElement(name = "response")
     public static class PlaceInformation {
 
+        @XmlElement
         private Body body;
-
-        private Header header;
-
-    }
-
-    @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class Header {
-
-        private Integer resultCode;
-
-        private Integer resultMsg;
 
     }
 
@@ -38,12 +29,11 @@ public class PlaceResponse {
     @AllArgsConstructor
     public static class Body {
 
+        @XmlElementWrapper
+        @XmlElement
         private List<Item> items;
 
-        private Integer numOfRows;
-
-        private Integer totalCount;
-
+        @XmlElement
         private Integer pageNo;
 
     }
@@ -53,49 +43,32 @@ public class PlaceResponse {
     @AllArgsConstructor
     public static class Item {
 
-        private Integer areacode;
-
-        private Integer contentid;
-
-        private Integer contenttypeid;
-
-        private Integer mlevel;
-
-        private Integer readcount;
-
-        private Integer sigungucode;
-
+        @XmlElement
         private String title;
 
-        @DateTimeFormat(pattern = "yyyyMMddhhmmSS")
+        @DateTimeFormat(pattern = "yyyyMMddhhmmss")
         private LocalDateTime createdtime;
 
-        @DateTimeFormat(pattern = "yyyyMMddhhmmSS")
+        @DateTimeFormat(pattern = "yyyyMMddhhmms")
         private LocalDateTime modifiedtime;
 
+        @XmlElement
         private String firstimage;
 
-        private String firstimage2;
+        @XmlElement
+        private Double mapX;
 
-        private BigDecimal mapX;
+        @XmlElement
+        private Double mapY;
 
-        private BigDecimal mapY;
-
-        private String cat1;
-
-        private String cat2;
-
-        private String cat3;
-
+        @XmlElement
         private String addr1;
 
+        @XmlElement
         private String addr2;
 
+        @XmlElement
         private String tel;
-
-        private Integer booktour;
-
-        private Integer zipcode;
 
     }
 

@@ -1,12 +1,13 @@
 package com.su.hydrangea.domain.region.entity;
 
-import com.su.hydrangea.domain.region.entity.id.RegionInfoId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Getter
 @Builder
@@ -15,8 +16,8 @@ import javax.persistence.*;
 @Entity
 public class RegionInfo {
 
-    @EmbeddedId
-    private RegionInfoId id;
+    @Id
+    private String name;
 
     @Column(name = "confirm_case_count")
     private long confirmCaseCount;

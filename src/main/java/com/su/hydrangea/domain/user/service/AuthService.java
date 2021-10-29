@@ -24,7 +24,6 @@ public class AuthService {
 
         User user = User.builder()
                 .id(userInfo.getId())
-                .username(userInfo.getProperties().getNickname())
                 .build();
         userRepository.save(user);
 

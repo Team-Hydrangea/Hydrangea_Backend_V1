@@ -6,30 +6,23 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-public class PlaceDto {
+import javax.validation.constraints.NotBlank;
+
+public class PlaceSearchDto {
 
     @Getter
     @NoArgsConstructor
-    @ApiModel(value = "관광지 리스트 가져오기 request", description = "관광지 리스트 가져오기 request")
+    @ApiModel(value = "검색에 따른 관광지 리스트 가져오기 request", description = "검색에 따른 관광지 리스트 가져오기 request")
     public static class Request {
 
-        @ApiModelProperty(value = "위도1", example = "33.3333")
-        private double latitude1;
-
-        @ApiModelProperty(value = "경도1", example = "123.3333")
-        private double longitude1;
-
-        @ApiModelProperty(value = "위도2", example = "33.3333")
-        private double latitude2;
-
-        @ApiModelProperty(value = "경도2", example = "123.3333")
-        private double longitude2;
-
+        @NotBlank
+        @ApiModelProperty(value = "검색어", example = "백두산")
+        private String word;
     }
 
     @Getter
     @AllArgsConstructor
-    @ApiModel(value = "관광지 리스트 가져오기 response", description = "관광지 리스트 가져오기 response")
+    @ApiModel(value = "검색에 따른 관광지 리스트 가져오기 response", description = "검색에 따른 관광지 리스트 가져오기 response")
     public static class Response {
 
         @ApiModelProperty(value = "관광지 이름", example = "백두산")

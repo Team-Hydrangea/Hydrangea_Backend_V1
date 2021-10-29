@@ -8,5 +8,6 @@ import java.util.List;
 public interface ElasticPlaceRepository extends ElasticsearchRepository<Place, String> {
 
     List<Place> findByLatitudeBetweenAndLongitudeBetween(double latitude, double latitude2, double longitude, double longitude2);
+    List<Place> findByTitleContaining(String title);
 
 }

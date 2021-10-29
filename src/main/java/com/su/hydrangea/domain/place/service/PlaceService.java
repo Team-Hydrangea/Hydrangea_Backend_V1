@@ -1,6 +1,7 @@
 package com.su.hydrangea.domain.place.service;
 
 import com.su.hydrangea.domain.place.dto.PlaceDto;
+import com.su.hydrangea.domain.place.dto.PlaceSearchDto;
 import com.su.hydrangea.domain.place.entity.Place;
 import com.su.hydrangea.domain.place.repository.ElasticPlaceRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,22 @@ public class PlaceService {
         return placeList.stream().map(
                 place -> {
                     return new PlaceDto.Response(
+                            place.getTitle(),
+                            place.getNumber(),
+                            place.getImage(),
+                            place.getLatitude(),
+                            place.getLongitude()
+                    );
+                }
+        ).collect(Collectors.toList());
+    }
+
+    public List<PlaceSearchDto.Response> getPlaceListBySearch(PlaceSearchDto.Request request) {
+        List<Place> placeList = placeRepository.findByTitleContaining(request.getWord());
+
+        return placeList.stream().map(
+                place -> {
+                    return new PlaceSearchDto.Response(
                             place.getTitle(),
                             place.getNumber(),
                             place.getImage(),

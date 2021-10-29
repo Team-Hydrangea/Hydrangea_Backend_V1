@@ -1,6 +1,7 @@
 package com.su.hydrangea.domain.user.service;
 
 import com.su.hydrangea.domain.user.dto.BookmarkAddDto;
+import com.su.hydrangea.domain.user.dto.BookmarkDeleteDto;
 import com.su.hydrangea.domain.user.entity.Bookmark;
 import com.su.hydrangea.domain.user.entity.User;
 import com.su.hydrangea.domain.user.excpetion.UserNotFoundException;
@@ -27,6 +28,13 @@ public class BookmarkService {
                 .user(user)
                 .build();
         bookmarkRepository.save(bookmark);
+    }
+
+    public void deleteBookmark(@RequestBody BookmarkDeleteDto.Request request, Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(UserNotFoundException::new);
+
+        bookmarkRepository.deleteByLongitudeAndLatitudeAndUser(request.getLatitude(), request.getLongitude(), user);
     }
 
 }

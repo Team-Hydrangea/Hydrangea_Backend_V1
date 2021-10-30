@@ -10,6 +10,8 @@ import com.su.hydrangea.global.security.AuthenticationFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class StarScoreService {
@@ -37,4 +39,16 @@ public class StarScoreService {
                             starScoreRepository.save(starScore);
                         });
     }
+
+    public StarScoreDto.GetResponse getStarScore(Double longitude, Double latitude) {
+        User user = userRepository.findById(authenticationFacade.getId())
+                .orElseThrow(UserNotFoundException::new);
+
+        Optional<StarScore> starScore = starScoreRepository.findByUserAndLatitudeAndLongitude(user, latitude, longitude);
+        if (starScore.isPresent()) {
+            return new StarScoreDto.GetResponse(starScore.get().getScore());
+        }
+        return new StarScoreDto.GetResponse(0);
+    }
+
 }

@@ -13,4 +13,12 @@ public class StarScoreDto {
         private Double score;
     }
 
+    @Getter
+    @AllArgsConstructor
+    public static class GetResponse {
+
+        private double score;
+
+    }
+
 }

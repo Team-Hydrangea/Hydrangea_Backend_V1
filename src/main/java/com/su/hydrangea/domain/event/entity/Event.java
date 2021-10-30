@@ -29,4 +29,8 @@ public class Event {
 
     private LocalDate endDate;
 
+    private String address;
+
+    private String detailAddress;
+
 }

@@ -41,6 +41,8 @@ public class EventScheduler {
                             .latitude(item.getLatitude())
                             .longitude(item.getLongitude())
                             .name(item.getName())
+                            .address(item.getAddress())
+                            .detailAddress(item.getDetailAddress())
                             .build())
                     .collect(Collectors.toList());
             repository.saveAll(events);

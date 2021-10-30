@@ -57,5 +57,11 @@ public class EventResponse {
         @XmlElement(name = "eventstartdate")
         private String startDate;
 
+        @XmlElement(name = "addr1")
+        private String address;
+
+        @XmlElement(name = "addr1")
+        private String detailAddress;
+
     }
 }

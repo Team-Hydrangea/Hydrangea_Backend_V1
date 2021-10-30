@@ -33,7 +33,9 @@ public class EventService {
                         event.getLatitude(),
                         event.getLongitude(),
                         event.getStartDate(),
-                        event.getEndDate()
+                        event.getEndDate(),
+                        event.getAddress(),
+                        event.getDetailAddress()
                 )).collect(Collectors.toList());
     }
 

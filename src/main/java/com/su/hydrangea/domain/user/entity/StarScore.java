@@ -1,12 +1,12 @@
 package com.su.hydrangea.domain.user.entity;
 
-import com.su.hydrangea.domain.place.entity.Place;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Getter
 @Builder
@@ -23,8 +23,14 @@ public class StarScore {
 
     private Double latitude;
 
+    private Double score;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public void updateScore(Double score) {
+        this.score = score;
+    }
 
 }

@@ -34,7 +34,9 @@ public class EventScheduler {
         for (int i = 0; i < 100; i++) {
             var response = client.getFestival(secretKey, 100, i, "ETC", "test", now, now.plusMonths(1));
             var events = response.getBody().getItems()
-                    .stream().map(item -> Event.builder()
+                    .stream()
+                    .filter(row -> row.getLatitude() != null && row.getLongitude() != null)
+                    .map(item -> Event.builder()
                             .endDate(LocalDate.parse(item.getEndDate(), format))
                             .startDate(LocalDate.parse(item.getStartDate(), format))
                             .image(item.getImage())

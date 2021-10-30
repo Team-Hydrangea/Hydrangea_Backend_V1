@@ -31,6 +31,7 @@ public class SavePlace {
             var response = placeClient.getTourInformation(secret, 100, i, "ETC", "test");
             var places = response.getBody()
                     .getItems().stream()
+                    .filter(item -> item.getMapx() != null && item.getMapy() != null)
                     .map(item -> Place.builder()
                             .latitude(item.getMapy())
                             .longitude(item.getMapx())

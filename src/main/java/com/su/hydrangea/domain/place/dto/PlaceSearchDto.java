@@ -59,6 +59,11 @@ public class PlaceSearchDto {
         @ApiModelProperty(value = "상세주소", example = "도학동")
         private String detailAddress;
 
+        @ApiModelProperty(value = "평균 별점", example = "5.0")
+        private double starScore;
+
+        @ApiModelProperty(value = "즐겨찾기 여부", example = "true")
+        private boolean bookmark;
     }
 
 }

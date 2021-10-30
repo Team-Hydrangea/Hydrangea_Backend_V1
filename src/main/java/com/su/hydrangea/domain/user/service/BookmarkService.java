@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +32,13 @@ public class BookmarkService {
     private final CustomBookmarkRepositoryImpl customBookmarkRepository;
     private final CustomStarScoreRepositoryImpl customStarScoreRepository;
 
-    public void addBookmark(@RequestBody BookmarkAddDto.Request request, Long userId) {
+    @Transactional
+    public void addBookmark(BookmarkAddDto.Request request, Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
 
         if (bookmarkRepository.existsByUserIdAndLongitudeAndLatitude(userId, request.getLongitude(), request.getLatitude())) {
-            bookmarkRepository.deleteByLongitudeAndLatitudeAndUser(request.getLatitude(), request.getLongitude(), user);
+            bookmarkRepository.deleteByLongitudeAndLatitudeAndUser(request.getLongitude(), request.getLatitude(), user);
         } else {
             Bookmark bookmark = Bookmark.builder()
                     .latitude(request.getLatitude())
@@ -71,7 +73,7 @@ public class BookmarkService {
         return new BookmarkDto.Response(bookmarkList.getTotalPages(), contents);
     }
 
-    public BookmarkRandomDto.Response getRandomBookamrkPlace(long userId) {
+    public BookmarkRandomDto.Response getRandomBookmarkPlace(long userId) {
         Bookmark bookmark = customBookmarkRepository.getRandomBookmark(userId);
         Place place = placeRepository.findByLongitudeAndLatitude(bookmark.getLongitude(), bookmark.getLatitude())
                 .orElseThrow(UserNotFoundException::new);

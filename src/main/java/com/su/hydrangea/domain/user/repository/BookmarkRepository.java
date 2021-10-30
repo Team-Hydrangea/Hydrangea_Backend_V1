@@ -11,7 +11,7 @@ import java.util.List;
 public interface BookmarkRepository extends CrudRepository<Bookmark, Long> {
 
     Boolean existsByUserIdAndLongitudeAndLatitude(long user_id, Double longitude, Double latitude);
-    void deleteByLongitudeAndLatitudeAndUser(double latitude, double longtitude, User user);
+    void deleteByLongitudeAndLatitudeAndUser(Double longitude, Double latitude, User user);
     Page<Bookmark> findByUserId(long user_id, Pageable pageable);
 
 }

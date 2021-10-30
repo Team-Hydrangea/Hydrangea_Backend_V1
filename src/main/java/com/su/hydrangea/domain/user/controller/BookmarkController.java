@@ -32,8 +32,8 @@ public class BookmarkController {
     }
 
     @GetMapping("/random")
-    public BookmarkRandomDto.Response getRandomBookamrkPlace() {
-        return bookmarkService.getRandomBookamrkPlace(authenticationFacade.getId());
+    public BookmarkRandomDto.Response getRandomBookmarkPlace() {
+        return bookmarkService.getRandomBookmarkPlace(authenticationFacade.getId());
     }
 
 }

@@ -32,7 +32,9 @@ public class PlaceService {
                         place.getNumber(),
                         place.getImage(),
                         place.getLatitude(),
-                        place.getLongitude()
+                        place.getLongitude(),
+                        place.getAddr1(),
+                        place.getAddr2()
                 )).collect(Collectors.toList());
     }
 
@@ -47,7 +49,9 @@ public class PlaceService {
                                 place.getNumber(),
                                 place.getImage(),
                                 place.getLatitude(),
-                                place.getLongitude()
+                                place.getLongitude(),
+                                place.getAddr1(),
+                                place.getAddr2()
                         )).collect(Collectors.toList())
         );
     }

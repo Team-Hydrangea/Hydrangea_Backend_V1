@@ -47,6 +47,12 @@ public class PlaceDto {
         @ApiModelProperty(value = "관광지 경도", example = "123.3333")
         private double longitude;
 
+        @ApiModelProperty(value = "주소", example = "대구광역시 동구 동화사1길 1")
+        private String address;
+
+        @ApiModelProperty(value = "상세주소", example = "도학동")
+        private String detailAddress;
+
     }
 
 }

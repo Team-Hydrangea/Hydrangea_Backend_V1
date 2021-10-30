@@ -58,6 +58,12 @@ public class PlaceResponse {
         @XmlElement
         private String tel;
 
+        @XmlElement
+        private String addr1;
+
+        @XmlElement
+        private String addr2;
+
     }
 
 }

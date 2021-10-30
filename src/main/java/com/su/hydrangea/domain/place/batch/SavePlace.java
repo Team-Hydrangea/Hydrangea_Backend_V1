@@ -37,6 +37,8 @@ public class SavePlace {
                             .title(item.getTitle())
                             .image(item.getFirstimage())
                             .number(item.getTel())
+                            .addr1(item.getAddr1())
+                            .addr2(item.getAddr2())
                             .build())
                     .collect(Collectors.toList());
             repository.saveAll(places);

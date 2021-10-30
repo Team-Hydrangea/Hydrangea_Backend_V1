@@ -28,4 +28,8 @@ public class Place {
 
     private Double longitude;
 
+    private String addr1;
+
+    private String addr2;
+
 }

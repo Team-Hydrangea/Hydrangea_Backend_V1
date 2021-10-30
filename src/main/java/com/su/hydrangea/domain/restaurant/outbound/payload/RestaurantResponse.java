@@ -17,8 +17,7 @@ public class RestaurantResponse {
     @XmlRootElement(name = "SafetyRestrntInfo")
     public static class RestaurantInformation {
 
-        @XmlElementWrapper
-        @XmlElement
+        @XmlElement(name = "row")
         private List<Row> row;
 
     }

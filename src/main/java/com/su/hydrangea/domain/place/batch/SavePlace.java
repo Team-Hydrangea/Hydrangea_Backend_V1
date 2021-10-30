@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -21,7 +23,8 @@ public class SavePlace {
     @Value("${openapi.secret}")
     private String secret;
 
-    @Scheduled(cron = "0 0 3 * * ?")
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Scheduled(cron = "0 8 * * * ?")
     public void savePlaceList() {
         repository.deleteAll();
         for (int i = 0; i < 10; i++) {

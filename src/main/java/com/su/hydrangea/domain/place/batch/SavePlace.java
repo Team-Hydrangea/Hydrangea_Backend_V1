@@ -27,7 +27,7 @@ public class SavePlace {
     @Scheduled(cron = "0 0 3 * * ?")
     public void savePlaceList() {
         repository.deleteAll();
-        for (int i = 1; i < 10; i++) {
+        for (int i = 1; i < 100; i++) {
             var response = placeClient.getTourInformation(secret, 100, i, "ETC", "test");
             var places = response.getBody()
                     .getItems().stream()

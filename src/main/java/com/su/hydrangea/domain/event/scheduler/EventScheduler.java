@@ -31,7 +31,7 @@ public class EventScheduler {
         LocalDate now = LocalDate.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd");
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             var response = client.getFestival(secretKey, 100, i, "ETC", "test", now, now.plusMonths(1));
             var events = response.getBody().getItems()
                     .stream().map(item -> Event.builder()

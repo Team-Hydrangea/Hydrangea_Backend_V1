@@ -43,6 +43,12 @@ public class BookmarkDto {
         @ApiModelProperty(value = "관광지 이미지", example = "대충 이미지 링크")
         private String image;
 
+        @ApiModelProperty(value = "주소", example = "대구광역시 동구 동화사1길 1")
+        private String address;
+
+        @ApiModelProperty(value = "상세주소", example = "도학동")
+        private String detailAddress;
+
     }
 
 }

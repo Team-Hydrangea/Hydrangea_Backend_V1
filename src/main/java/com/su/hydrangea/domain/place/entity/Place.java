@@ -5,32 +5,27 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
 
-import javax.persistence.*;
+import javax.persistence.Id;
 
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Document(indexName = "place")
 public class Place {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
 
-    @Field
-    private String name;
+    private String title;
+
+    private String number;
+
+    private String image;
 
     private double latitude;
 
     private double longitude;
-
-    @Column(nullable = false)
-    private String number;
-
-    @Column(nullable = false)
-    private String address;
 
 }

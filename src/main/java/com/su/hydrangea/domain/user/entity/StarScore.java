@@ -19,9 +19,9 @@ public class StarScore {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "place_id", nullable = false)
-    private Place place;
+    private Double longitude;
+
+    private Double latitude;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

@@ -38,3 +38,6 @@ out/
 
 ### DS_STORE for mac
 **.DS_STORE**
+
+### QueryDsl ###
+src/main/generated/**

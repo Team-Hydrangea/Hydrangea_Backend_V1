@@ -2,10 +2,17 @@ auth:
   jwt:
     secret: ${JWT_SECRET:}
 spring:
+  quartz:
+    scheduler-name: quartz_
+    jdbc:
+      initialize-schema: always
+    job-store-type: jdbc
   batch:
     jdbc:
       initialize-schema: always
-      table-prefix: batch_
+      table-prefix: BATCH_
+    job:
+      enabled: false
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     username: ${DB_USERNAME:}
@@ -16,10 +23,16 @@ spring:
   jpa:
     generate-ddl: false
     show-sql: false
-    hibernate:
-      use-new-id-generator-mappings: false
+    properties:
+      hibernate.order_inserts: true
+      hibernate.order_updates: true
   elasticsearch:
     rest:
       username: ${ELASTIC_USERNAME}
       password: ${ELASTIC_PASSWORD}
       uris: ${ELASTIC_URL}
+openapi:
+  secret: ${OPENAPI_SECRET}
+  secret2: ${OPENAPI_SECRET2}
+  kkyeongki:
+    secret: ${KKYEONGKI_SECRET}

@@ -1,4 +1,4 @@
-package com.su.hydrangea.domain.region.entity.id;
+package com.su.hydrangea.domain.event.entity.id;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,16 +6,17 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
-import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Embeddable
-public class RegionInfoId implements Serializable {
+public class EventId implements Serializable {
 
-    private LocalDate date;
+    private double latitude;
 
-    private int code;
+    private double longitude;
+
+    private String name;
 
 }

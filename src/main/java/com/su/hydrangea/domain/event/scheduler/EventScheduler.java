@@ -29,14 +29,13 @@ public class EventScheduler {
     public void saveEvent() {
         repository.deleteAll();
         LocalDate now = LocalDate.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd");
 
         for (int i = 0; i < 100; i++) {
             var response = client.getFestival(secretKey, 100, i, "ETC", "test", now, now.plusMonths(1));
             var events = response.getBody().getItems()
                     .stream().map(item -> Event.builder()
-                            .endDate(LocalDate.parse(item.getEndDate(), format))
-                            .startDate(LocalDate.parse(item.getStartDate(), format))
+                            .endDate(item.getEndDate())
+                            .startDate(item.getStartDate())
                             .image(item.getImage())
                             .latitude(item.getLatitude())
                             .longitude(item.getLongitude())

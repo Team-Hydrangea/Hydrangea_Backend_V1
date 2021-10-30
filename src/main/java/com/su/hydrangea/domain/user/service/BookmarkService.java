@@ -10,6 +10,7 @@ import com.su.hydrangea.domain.user.entity.User;
 import com.su.hydrangea.domain.user.excpetion.UserNotFoundException;
 import com.su.hydrangea.domain.user.repository.BookmarkRepository;
 import com.su.hydrangea.domain.user.repository.CustomBookmarkRepositoryImpl;
+import com.su.hydrangea.domain.user.repository.CustomStarScoreRepositoryImpl;
 import com.su.hydrangea.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,7 @@ public class BookmarkService {
     private final BookmarkRepository bookmarkRepository;
     private final ElasticPlaceRepository placeRepository;
     private final CustomBookmarkRepositoryImpl customBookmarkRepository;
+    private final CustomStarScoreRepositoryImpl customStarScoreRepository;
 
     public void addBookmark(@RequestBody BookmarkAddDto.Request request, Long userId) {
         User user = userRepository.findById(userId)
@@ -83,6 +85,10 @@ public class BookmarkService {
                 .title(place.getTitle())
                 .address(place.getAddr1())
                 .detailAddress(place.getAddr2())
+                .starScore(customStarScoreRepository.getAvg(
+                        place.getLatitude(),
+                        place.getLongitude()
+                ))
                 .build();
     }
 

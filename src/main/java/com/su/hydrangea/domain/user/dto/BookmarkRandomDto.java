@@ -35,6 +35,9 @@ public class BookmarkRandomDto {
         @ApiModelProperty(value = "상세주소", example = "도학동")
         private String detailAddress;
 
+        @ApiModelProperty(value = "평균 별점", example = "5.0")
+        private double starScore;
+
     }
 
 }

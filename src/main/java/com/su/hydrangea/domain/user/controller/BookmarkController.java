@@ -3,6 +3,7 @@ package com.su.hydrangea.domain.user.controller;
 import com.su.hydrangea.domain.user.dto.BookmarkAddDto;
 import com.su.hydrangea.domain.user.dto.BookmarkDeleteDto;
 import com.su.hydrangea.domain.user.dto.BookmarkDto;
+import com.su.hydrangea.domain.user.dto.BookmarkRandomDto;
 import com.su.hydrangea.domain.user.service.BookmarkService;
 import com.su.hydrangea.global.security.AuthenticationFacade;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,11 @@ public class BookmarkController {
     @GetMapping
     public BookmarkDto.Response getBookmarkList(@RequestParam("page") int page, @RequestParam("size") int size) {
         return bookmarkService.getBookmarkList(PageRequest.of(page, size), authenticationFacade.getId());
+    }
+
+    @GetMapping("/random")
+    public BookmarkRandomDto.Response getRandomBookamrkPlace() {
+        return bookmarkService.getRandomBookamrkPlace(authenticationFacade.getId());
     }
 
 }

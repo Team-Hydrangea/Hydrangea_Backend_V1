@@ -1,11 +1,15 @@
 package com.su.hydrangea.domain.region.service;
 
+import com.su.hydrangea.domain.place.repository.ElasticPlaceRepository;
 import com.su.hydrangea.domain.region.dto.RegionInfoDto;
 import com.su.hydrangea.domain.region.dto.SafeRegionDto;
 import com.su.hydrangea.domain.region.entity.RegionInfo;
 import com.su.hydrangea.domain.region.repository.CustomRegionRepositoryImpl;
 import com.su.hydrangea.domain.region.repository.RegionInfoRepository;
+import com.su.hydrangea.domain.user.repository.BookmarkRepository;
+import com.su.hydrangea.domain.user.repository.CustomStarScoreRepositoryImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +21,28 @@ public class RegionService {
 
     private final CustomRegionRepositoryImpl customRegionRepository;
     private final RegionInfoRepository regionInfoRepository;
+    private final ElasticPlaceRepository placeRepository;
+    private final CustomStarScoreRepositoryImpl customStarScoreRepository;
 
-    public SafeRegionDto.Response getSafeRegion() {
+    public List<SafeRegionDto.Response> getSafeRegion(Pageable pageable) {
         RegionInfo regionInfo = customRegionRepository.getSafeRandomRegion();
-        return new SafeRegionDto.Response(regionInfo.getName());
+        return placeRepository.findByTitleContaining(regionInfo.getName(), pageable)
+                .stream().map(
+                        place -> new SafeRegionDto.Response(
+                                place.getTitle(),
+                                place.getNumber(),
+                                place.getImage(),
+                                place.getLatitude(),
+                                place.getLongitude(),
+                                place.getAddr1(),
+                                place.getAddr2(),
+                                customStarScoreRepository.getAvg(
+                                        place.getLatitude(),
+                                        place.getLongitude()
+                                )
+                        )
+                ).collect(Collectors.toList());
+
     }
 
     public List<RegionInfoDto.Response> getRegionInfo() {

@@ -74,6 +74,9 @@ public class BookmarkService {
     }
 
     public BookmarkRandomDto.Response getRandomBookmarkPlace(long userId) {
+        if (bookmarkRepository.existsByUserId(userId)) {
+            throw new UserNotFoundException();
+        }
         Bookmark bookmark = customBookmarkRepository.getRandomBookmark(userId);
         Place place = placeRepository.findByLongitudeAndLatitude(bookmark.getLongitude(), bookmark.getLatitude())
                 .orElseThrow(UserNotFoundException::new);

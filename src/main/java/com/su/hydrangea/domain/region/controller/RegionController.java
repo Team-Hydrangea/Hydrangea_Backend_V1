@@ -5,8 +5,10 @@ import com.su.hydrangea.domain.region.dto.SafeRegionDto;
 import com.su.hydrangea.domain.region.service.RegionService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,8 +22,8 @@ public class RegionController {
 
     @GetMapping("/safe")
     @ApiOperation(value = "안전 점수가 높은 랜덤 지역", notes = "안전 점수가 높은 랜덤 지역 가져옵니다")
-    public SafeRegionDto.Response getSafeRegion() {
-        return regionService.getSafeRegion();
+    public List<SafeRegionDto.Response> getSafeRegion(@RequestParam("page") int page, @RequestParam("size") int size) {
+        return regionService.getSafeRegion(PageRequest.of(page, size));
     }
 
     @GetMapping("/info")

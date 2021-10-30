@@ -13,5 +13,6 @@ public interface BookmarkRepository extends CrudRepository<Bookmark, Long> {
     Boolean existsByUserIdAndLongitudeAndLatitude(long user_id, Double longitude, Double latitude);
     void deleteByLongitudeAndLatitudeAndUser(Double longitude, Double latitude, User user);
     Page<Bookmark> findByUserId(long user_id, Pageable pageable);
+    Boolean existsByUserId(long user_id);
 
 }

@@ -25,6 +25,8 @@ public class RestaurantService {
                 pageable
         );
 
+        System.out.println("테스트" + restaurantList.getTotalPages());
+
         return new RestaurantDto.Response(
                 restaurantList.getTotalElements(),
                 restaurantList.stream().map(

@@ -2,9 +2,11 @@ package com.su.hydrangea.domain.user.controller;
 
 import com.su.hydrangea.domain.user.dto.BookmarkAddDto;
 import com.su.hydrangea.domain.user.dto.BookmarkDeleteDto;
+import com.su.hydrangea.domain.user.dto.BookmarkDto;
 import com.su.hydrangea.domain.user.service.BookmarkService;
 import com.su.hydrangea.global.security.AuthenticationFacade;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,11 @@ public class BookmarkController {
     @ResponseStatus(HttpStatus.CREATED)
     public void addBookmark(@RequestBody BookmarkAddDto.Request request) {
         bookmarkService.addBookmark(request,authenticationFacade.getId());
+    }
+
+    @GetMapping
+    public BookmarkDto.Response getBookmarkList(Pageable pageable) {
+        return bookmarkService.getBookmarkList(pageable, authenticationFacade.getId());
     }
 
     @DeleteMapping

@@ -75,7 +75,7 @@ public class BookmarkService {
     }
 
     public BookmarkRandomDto.Response getRandomBookmarkPlace(long userId) {
-        if (bookmarkRepository.existsByUserId(userId)) {
+        if (!bookmarkRepository.existsByUserId(userId)) {
             throw new UserNotFoundException();
         }
         Bookmark bookmark = customBookmarkRepository.getRandomBookmark(userId)

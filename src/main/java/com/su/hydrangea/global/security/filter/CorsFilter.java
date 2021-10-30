@@ -1,5 +1,6 @@
 package com.su.hydrangea.global.security.filter;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -10,6 +11,7 @@ import java.io.IOException;
 
 import static org.springframework.http.HttpMethod.OPTIONS;
 
+@Component
 public class CorsFilter extends OncePerRequestFilter {
 
     @Override

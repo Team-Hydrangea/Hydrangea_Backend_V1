@@ -18,8 +18,8 @@ public class FilterConfigure extends SecurityConfigurerAdapter<DefaultSecurityFi
         JwtTokenFilter jwtTokenFilter = new JwtTokenFilter(jwtTokenProvider);
         CorsFilter corsFilter = new CorsFilter();
 
-        httpSecurity.addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class);
         httpSecurity.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(corsFilter, JwtTokenFilter.class);
     }
 
 }

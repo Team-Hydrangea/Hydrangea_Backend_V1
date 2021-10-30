@@ -4,6 +4,7 @@ import com.su.hydrangea.domain.event.dto.EventDto;
 import com.su.hydrangea.domain.event.service.EventService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +17,9 @@ public class EventController {
 
     @PostMapping("/all")
     @ApiOperation(value = "좌표 안에 있는 축제", notes = "입력한 좌표 안에 있는 축제 리스트를 가져옵니다")
-    public EventDto.Response getEventList(Pageable pageable,
+    public EventDto.Response getEventList(@RequestParam("page") int page, @RequestParam("size") int size,
                                           @RequestBody EventDto.Request request) {
-        return eventService.getEventList(request, pageable);
+        return eventService.getEventList(request, PageRequest.of(page, size));
     }
 
 }

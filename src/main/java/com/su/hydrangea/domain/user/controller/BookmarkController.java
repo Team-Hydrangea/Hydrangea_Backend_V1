@@ -29,10 +29,4 @@ public class BookmarkController {
         return bookmarkService.getBookmarkList(pageable, authenticationFacade.getId());
     }
 
-    @DeleteMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBookmark(@RequestBody BookmarkDeleteDto.Request request) {
-        bookmarkService.deleteBookmark(request,authenticationFacade.getId());
-    }
-
 }

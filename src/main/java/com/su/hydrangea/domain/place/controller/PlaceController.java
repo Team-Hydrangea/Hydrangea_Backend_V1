@@ -6,10 +6,10 @@ import com.su.hydrangea.domain.place.service.PlaceService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,9 +20,8 @@ public class PlaceController {
 
     @PostMapping("/all")
     @ApiOperation(value = "좌표 안에 있는 관광지", notes = "입력한 좌표 안에 있는 관광지 리스트를 가져옵니다")
-    public PlaceDto.Response getPlaceList(@RequestParam("page") int page, @RequestParam("size") int size,
-                                          @RequestBody PlaceDto.Request request) {
-        return placeService.getPlaceList(request, PageRequest.of(page, size));
+    public List<PlaceDto.Response> getPlaceList(@RequestBody PlaceDto.Request request) {
+        return placeService.getPlaceList(request);
     }
 
     @PostMapping("/list")

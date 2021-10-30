@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface EventRepository extends ElasticsearchRepository<Event, String> {
 
-    Page<Event> findByLatitudeBetweenAndLongitudeBetween(double latitude, double latitude2, double longitude, double longitude2, Pageable pageable);
+    List<Event> findByLatitudeBetweenAndLongitudeBetween(double latitude, double latitude2, double longitude, double longitude2);
 
 }

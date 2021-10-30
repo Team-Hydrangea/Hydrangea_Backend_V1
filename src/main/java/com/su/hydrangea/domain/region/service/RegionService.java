@@ -8,6 +8,7 @@ import com.su.hydrangea.domain.region.repository.CustomRegionRepositoryImpl;
 import com.su.hydrangea.domain.region.repository.RegionInfoRepository;
 import com.su.hydrangea.domain.user.repository.BookmarkRepository;
 import com.su.hydrangea.domain.user.repository.CustomStarScoreRepositoryImpl;
+import com.su.hydrangea.global.security.AuthenticationFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,8 @@ public class RegionService {
     private final RegionInfoRepository regionInfoRepository;
     private final ElasticPlaceRepository placeRepository;
     private final CustomStarScoreRepositoryImpl customStarScoreRepository;
+    private final AuthenticationFacade authenticationFacade;
+    private final BookmarkRepository bookmarkRepository;
 
     public List<SafeRegionDto.Response> getSafeRegion(Pageable pageable) {
         RegionInfo regionInfo = customRegionRepository.getSafeRandomRegion();
@@ -39,7 +42,11 @@ public class RegionService {
                                 customStarScoreRepository.getAvg(
                                         place.getLatitude(),
                                         place.getLongitude()
-                                )
+                                ),
+                                authenticationFacade.isLogin() && bookmarkRepository.existsByUserIdAndLongitudeAndLatitude(
+                                        authenticationFacade.getId(),
+                                        place.getLongitude(),
+                                        place.getLatitude())
                         )
                 ).collect(Collectors.toList());
 

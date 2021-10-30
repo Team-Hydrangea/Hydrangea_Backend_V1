@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -77,7 +78,8 @@ public class BookmarkService {
         if (bookmarkRepository.existsByUserId(userId)) {
             throw new UserNotFoundException();
         }
-        Bookmark bookmark = customBookmarkRepository.getRandomBookmark(userId);
+        Bookmark bookmark = customBookmarkRepository.getRandomBookmark(userId)
+                .orElseThrow(UserNotFoundException::new);
         Place place = placeRepository.findByLongitudeAndLatitude(bookmark.getLongitude(), bookmark.getLatitude())
                 .orElseThrow(UserNotFoundException::new);
 

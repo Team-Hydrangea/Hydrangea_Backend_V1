@@ -36,6 +36,9 @@ public class SafeRegionDto {
         @ApiModelProperty(value = "평균 별점", example = "5.0")
         private double starScore;
 
+        @ApiModelProperty(value = "즐겨찾기 여부", example = "true")
+        private boolean bookmark;
+
     }
 
 }

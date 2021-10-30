@@ -10,7 +10,7 @@ spring:
   batch:
     jdbc:
       initialize-schema: always
-      table-prefix: batch_
+      table-prefix: BATCH_
     job:
       enabled: false
   datasource:
@@ -33,3 +33,5 @@ spring:
       uris: ${ELASTIC_URL}
 openapi:
   secret: ${OPENAPI_SECRET}
+  kkyeongki:
+    secret: ${KKYEONGKI_SECRET}

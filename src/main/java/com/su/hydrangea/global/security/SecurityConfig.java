@@ -30,11 +30,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                         "/swagger-ui/*",
                         "/swagger-ui/**",
                         "/v2/api-docs",
-                        "/swagger-resources/**"
+                        "/swagger-resources/**",
+                        "/login",
+                        "/token-refresh",
+                        "/event/**",
+                        "/place/**",
+                        "/region/**"
                 ).permitAll()
-
-                // path
-
+                .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 .and().apply(new FilterConfigure(jwtTokenProvider));

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,27 +17,21 @@ public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
 
-    public RestaurantDto.Response getRestaurantList(RestaurantDto.Request request, Pageable pageable) {
-        Page<Restaurant> restaurantList = restaurantRepository.findByLatitudeBetweenAndLongitudeBetween(
+    public List<RestaurantDto.Response> getRestaurantList(RestaurantDto.Request request) {
+        List<Restaurant> restaurantList = restaurantRepository.findByLatitudeBetweenAndLongitudeBetween(
                 request.getLatitude1(),
                 request.getLatitude2(),
                 request.getLongitude1(),
-                request.getLongitude2(),
-                pageable
+                request.getLongitude2()
         );
 
-        System.out.println("테스트" + restaurantList.getTotalPages());
-
-        return new RestaurantDto.Response(
-                restaurantList.getTotalElements(),
-                restaurantList.stream().map(
-                        restaurant ->
-                            new RestaurantDto.Content(
-                                    restaurant.getName(),
-                                    restaurant.getLatitude(),
-                                    restaurant.getLongitude(),
-                                    restaurant.getNumber()
-                            )).collect(Collectors.toList())
-        );
+        return restaurantList.stream().map(
+                restaurant ->
+                        new RestaurantDto.Response(
+                                restaurant.getName(),
+                                restaurant.getLatitude(),
+                                restaurant.getLongitude(),
+                                restaurant.getNumber()
+                        )).collect(Collectors.toList());
     }
 }

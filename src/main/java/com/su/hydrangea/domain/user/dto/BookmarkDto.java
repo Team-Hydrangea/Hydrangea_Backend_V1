@@ -3,6 +3,7 @@ package com.su.hydrangea.domain.user.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
@@ -14,8 +15,8 @@ public class BookmarkDto {
     @ApiModel(value = "즐겨찾기 response", description = "즐겨찾기 response")
     public static class Response {
 
-        @ApiModelProperty(value = "총 요소 개수", example = "100")
-        private long totalElements;
+        @ApiModelProperty(value = "총 페이지 수", example = "100")
+        private int totalPages;
 
         private List<Content> content;
 
@@ -23,6 +24,7 @@ public class BookmarkDto {
 
     @Getter
     @AllArgsConstructor
+    @Builder
     @ApiModel(value = "관광지 리스트", description = "관광지 리스트")
     public static class Content {
 

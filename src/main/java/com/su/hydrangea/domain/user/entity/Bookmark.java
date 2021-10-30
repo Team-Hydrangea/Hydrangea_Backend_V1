@@ -13,6 +13,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"id", "longitude", "latitude"})
+})
 public class Bookmark {
 
     @Id

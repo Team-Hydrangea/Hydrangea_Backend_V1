@@ -1,7 +1,8 @@
 package com.su.hydrangea.domain.user.service;
 
+import com.su.hydrangea.domain.place.entity.Place;
+import com.su.hydrangea.domain.place.repository.ElasticPlaceRepository;
 import com.su.hydrangea.domain.user.dto.BookmarkAddDto;
-import com.su.hydrangea.domain.user.dto.BookmarkDeleteDto;
 import com.su.hydrangea.domain.user.dto.BookmarkDto;
 import com.su.hydrangea.domain.user.entity.Bookmark;
 import com.su.hydrangea.domain.user.entity.User;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,29 +24,44 @@ public class BookmarkService {
 
     private final UserRepository userRepository;
     private final BookmarkRepository bookmarkRepository;
+    private final ElasticPlaceRepository placeRepository;
 
     public void addBookmark(@RequestBody BookmarkAddDto.Request request, Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
 
-        Bookmark bookmark = Bookmark.builder()
-                .latitude(request.getLatitude())
-                .longitude(request.getLongitude())
-                .user(user)
-                .build();
-        bookmarkRepository.save(bookmark);
-    }
-
-    public void deleteBookmark(@RequestBody BookmarkDeleteDto.Request request, Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(UserNotFoundException::new);
-
-        bookmarkRepository.deleteByLongitudeAndLatitudeAndUser(request.getLatitude(), request.getLongitude(), user);
+        if (bookmarkRepository.existsByUserIdAndLongitudeAndLatitude(userId, request.getLongitude(), request.getLatitude())) {
+            bookmarkRepository.deleteByLongitudeAndLatitudeAndUser(request.getLatitude(), request.getLongitude(), user);
+        } else {
+            Bookmark bookmark = Bookmark.builder()
+                    .latitude(request.getLatitude())
+                    .longitude(request.getLongitude())
+                    .user(user)
+                    .build();
+            bookmarkRepository.save(bookmark);
+        }
     }
 
     public BookmarkDto.Response getBookmarkList(Pageable pageable, long userId) {
         Page<Bookmark> bookmarkList = bookmarkRepository.findByUserId(userId, pageable);
-        return null; // TODO 이거 해야함
+        List<BookmarkDto.Content> contents = new ArrayList<>();
+
+        for (Bookmark bookmark : bookmarkList.getContent()) {
+            Place place = placeRepository.findByLongitudeAndLatitude(bookmark.getLongitude(), bookmark.getLatitude())
+                            .orElseThrow(UserNotFoundException::new);
+
+            BookmarkDto.Content content = BookmarkDto.Content.builder()
+                    .image(place.getImage())
+                    .latitude(bookmark.getLatitude())
+                    .longitude(bookmark.getLongitude())
+                    .number(place.getNumber())
+                    .title(place.getTitle())
+                    .build();
+
+            contents.add(content);
+        }
+
+        return new BookmarkDto.Response(bookmarkList.getTotalPages(), contents);
     }
 
 }

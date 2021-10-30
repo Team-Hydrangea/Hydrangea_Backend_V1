@@ -21,7 +21,7 @@ public class AuthenticationFacade {
     }
 
     public boolean isLogin() {
-        return getAuthentication() == null;
+        return getAuthentication() != null;
     }
 
 }

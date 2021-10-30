@@ -31,26 +31,24 @@ public class PlaceService {
         );
 
         return placeList.stream().map(
-                place -> {
-                    return new PlaceDto.Response(
-                            place.getTitle(),
-                            place.getNumber(),
-                            place.getImage(),
-                            place.getLatitude(),
-                            place.getLongitude(),
-                            place.getAddr1(),
-                            place.getAddr2(),
-                            customStarScoreRepository.getAvg(
-                                    place.getLatitude(),
-                                    place.getLongitude()
-                            ),
-                            isLogin != false && bookmarkRepository.existsByUserIdAndLongitudeAndLatitude(
-                                    userId,
-                                    place.getLatitude(),
-                                    place.getLongitude()
-                            )
-                    );
-                }).collect(Collectors.toList());
+                place -> new PlaceDto.Response(
+                        place.getTitle(),
+                        place.getNumber(),
+                        place.getImage(),
+                        place.getLatitude(),
+                        place.getLongitude(),
+                        place.getAddr1(),
+                        place.getAddr2(),
+                        customStarScoreRepository.getAvg(
+                                place.getLatitude(),
+                                place.getLongitude()
+                        ),
+                        isLogin != false && bookmarkRepository.existsByUserIdAndLongitudeAndLatitude(
+                                userId,
+                                place.getLongitude(),
+                                place.getLatitude()
+                        )
+                )).collect(Collectors.toList());
     }
 
     public PlaceSearchDto.Response getPlaceListBySearch(PlaceSearchDto.Request request, Pageable pageable, boolean isLogin, Long userId) {
@@ -73,8 +71,8 @@ public class PlaceService {
                                 ),
                                 isLogin != false && bookmarkRepository.existsByUserIdAndLongitudeAndLatitude(
                                         userId,
-                                        place.getLatitude(),
-                                        place.getLongitude()
+                                        place.getLongitude(),
+                                        place.getLatitude()
                                 )
                         )).collect(Collectors.toList())
         );

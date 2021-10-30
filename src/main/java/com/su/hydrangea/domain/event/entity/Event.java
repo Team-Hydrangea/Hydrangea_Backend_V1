@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-import java.time.LocalDate;
-
 @Getter
 @Builder
 @NoArgsConstructor
@@ -25,9 +23,9 @@ public class Event {
 
     private String name;
 
-    private LocalDate startDate;
+    private String startDate;
 
-    private LocalDate endDate;
+    private String endDate;
 
     private String address;
 

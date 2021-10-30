@@ -4,6 +4,8 @@ import com.su.hydrangea.domain.place.dto.PlaceDto;
 import com.su.hydrangea.domain.place.dto.PlaceSearchDto;
 import com.su.hydrangea.domain.place.entity.Place;
 import com.su.hydrangea.domain.place.repository.ElasticPlaceRepository;
+import com.su.hydrangea.domain.user.repository.BookmarkRepository;
+import com.su.hydrangea.domain.user.repository.CustomStarScoreRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,8 +19,10 @@ import java.util.stream.Collectors;
 public class PlaceService {
 
     private final ElasticPlaceRepository placeRepository;
+    private final CustomStarScoreRepositoryImpl customStarScoreRepository;
+    private final BookmarkRepository bookmarkRepository;
 
-    public List<PlaceDto.Response> getPlaceList(PlaceDto.Request request) {
+    public List<PlaceDto.Response> getPlaceList(PlaceDto.Request request, boolean isLogin, Long userId) {
         List<Place> placeList = placeRepository.findByLatitudeBetweenAndLongitudeBetween(
                 request.getLatitude1(),
                 request.getLatitude2(),
@@ -27,18 +31,29 @@ public class PlaceService {
         );
 
         return placeList.stream().map(
-                place -> new PlaceDto.Response(
-                        place.getTitle(),
-                        place.getNumber(),
-                        place.getImage(),
-                        place.getLatitude(),
-                        place.getLongitude(),
-                        place.getAddr1(),
-                        place.getAddr2()
-                )).collect(Collectors.toList());
+                place -> {
+                    return new PlaceDto.Response(
+                            place.getTitle(),
+                            place.getNumber(),
+                            place.getImage(),
+                            place.getLatitude(),
+                            place.getLongitude(),
+                            place.getAddr1(),
+                            place.getAddr2(),
+                            customStarScoreRepository.getAvg(
+                                    place.getLatitude(),
+                                    place.getLongitude()
+                            ),
+                            isLogin != false && bookmarkRepository.existsByUserIdAndLongitudeAndLatitude(
+                                    userId,
+                                    place.getLatitude(),
+                                    place.getLongitude()
+                            )
+                    );
+                }).collect(Collectors.toList());
     }
 
-    public PlaceSearchDto.Response getPlaceListBySearch(PlaceSearchDto.Request request, Pageable pageable) {
+    public PlaceSearchDto.Response getPlaceListBySearch(PlaceSearchDto.Request request, Pageable pageable, boolean isLogin, Long userId) {
         Page<Place> placeList = placeRepository.findByTitleContaining(request.getWord(), pageable);
 
         return new PlaceSearchDto.Response(
@@ -51,7 +66,16 @@ public class PlaceService {
                                 place.getLatitude(),
                                 place.getLongitude(),
                                 place.getAddr1(),
-                                place.getAddr2()
+                                place.getAddr2(),
+                                customStarScoreRepository.getAvg(
+                                        place.getLatitude(),
+                                        place.getLongitude()
+                                ),
+                                isLogin != false && bookmarkRepository.existsByUserIdAndLongitudeAndLatitude(
+                                        userId,
+                                        place.getLatitude(),
+                                        place.getLongitude()
+                                )
                         )).collect(Collectors.toList())
         );
     }

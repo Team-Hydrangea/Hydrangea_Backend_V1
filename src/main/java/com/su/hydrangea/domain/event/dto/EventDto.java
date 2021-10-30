@@ -48,11 +48,11 @@ public class EventDto {
         @ApiModelProperty(value = "축제 경도", example = "123.3333")
         private double longitude;
 
-        @ApiModelProperty(value = "축제 시작일", example = "2021-03-01")
-        private LocalDate startDate;
+        @ApiModelProperty(value = "축제 시작일", example = "20210301")
+        private String startDate;
 
-        @ApiModelProperty(value = "축제 종료일", example = "2021-03-01")
-        private LocalDate endDate;
+        @ApiModelProperty(value = "축제 종료일", example = "20210301")
+        private String endDate;
 
         @ApiModelProperty(value = "주소", example = "대구광역시 동구 동화사1길 1")
         private String address;

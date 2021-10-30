@@ -56,6 +56,8 @@ public class BookmarkService {
                     .longitude(bookmark.getLongitude())
                     .number(place.getNumber())
                     .title(place.getTitle())
+                    .address(place.getAddr1())
+                    .detailAddress(place.getAddr2())
                     .build();
 
             contents.add(content);

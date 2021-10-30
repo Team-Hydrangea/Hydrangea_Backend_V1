@@ -24,7 +24,6 @@ public class CovidResponse {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    @XmlRootElement(name = "body")
     public static class Body {
 
         @XmlElementWrapper
@@ -38,7 +37,6 @@ public class CovidResponse {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    @XmlRootElement(name = "item")
     public static class Item {
 
         @XmlElement(name = "updateDt")

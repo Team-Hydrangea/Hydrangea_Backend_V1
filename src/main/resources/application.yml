@@ -33,5 +33,6 @@ spring:
       uris: ${ELASTIC_URL}
 openapi:
   secret: ${OPENAPI_SECRET}
+  secret2: ${OPENAPI_SECRET2}
   kkyeongki:
     secret: ${KKYEONGKI_SECRET}

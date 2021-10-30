@@ -7,9 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
-import java.awt.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class EventResponse {
@@ -17,6 +16,7 @@ public class EventResponse {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
+    @XmlRootElement(name = "response")
     public static class EventInfo {
         @XmlElement
         private Body body;

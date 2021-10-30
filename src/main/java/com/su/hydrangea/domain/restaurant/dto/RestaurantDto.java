@@ -36,7 +36,7 @@ public class RestaurantDto {
     public static class Response {
 
         @ApiModelProperty(value = "음식점 이름", example = "백두라면")
-        private String name;
+        private String title;
 
         @ApiModelProperty(value = "음식점 위도", example = "33.3333")
         private double latitude;

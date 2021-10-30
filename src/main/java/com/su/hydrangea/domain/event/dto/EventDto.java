@@ -37,7 +37,7 @@ public class EventDto {
     public static class Response {
 
         @ApiModelProperty(value = "축제 이름", example = "백두산 축제")
-        private String name;
+        private String title;
 
         @ApiModelProperty(value = "축제 이미지", example = "모름 대충 사진 url")
         private String image;

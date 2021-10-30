@@ -24,8 +24,8 @@ public class Place {
 
     private String image;
 
-    private double latitude;
+    private Double latitude;
 
-    private double longitude;
+    private Double longitude;
 
 }

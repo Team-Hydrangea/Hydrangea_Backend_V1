@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "tourPlaceClient", configuration = XmlConfiguration.class, url = "http://api.visitkorea.or.kr")
 public interface TourPlaceClient {
 
-    @GetMapping("/openapi/service/rest/KorService/areaCode")
-    PlaceResponse.PlaceInformation getTourInformation(@RequestParam("ServiceKey") @Value("${openapi.secret}") String serviceKey,
+    @GetMapping("/openapi/service/rest/KorService/areaBasedList")
+    PlaceResponse.PlaceInformation getTourInformation(@RequestParam("ServiceKey") String serviceKey,
                                                       @RequestParam("numOfRows") Integer numOfRows,
                                                       @RequestParam("pageNo") Integer pageNo,
                                                       @RequestParam("MobileOS") String mobileOS,

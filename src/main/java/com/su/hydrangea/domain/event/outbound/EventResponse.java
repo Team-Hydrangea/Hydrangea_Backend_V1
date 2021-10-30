@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,8 +28,8 @@ public class EventResponse {
     @AllArgsConstructor
     public static class Body {
 
-        @XmlElementWrapper
-        @XmlElement
+        @XmlElementWrapper(name = "items")
+        @XmlElement(name = "item")
         private List<Item> items;
 
     }
@@ -38,25 +39,23 @@ public class EventResponse {
     @AllArgsConstructor
     public static class Item {
 
-        @XmlElement(name = "mapX")
+        @XmlElement(name = "mapx")
         private Double longitude;
 
-        @XmlElement(name = "mapY")
+        @XmlElement(name = "mapy")
         private Double latitude;
 
         @XmlElement(name = "title")
         private String name;
 
-        @XmlElement(name = "firstImage")
+        @XmlElement(name = "firstimage")
         private String image;
 
         @XmlElement(name = "eventenddate")
-        @DateTimeFormat(pattern = "yyyyMMdd")
-        private LocalDate endDate;
+        private String endDate;
 
         @XmlElement(name = "eventstartdate")
-        @DateTimeFormat(pattern = "yyyyMMdd")
-        private LocalDate startDate;
+        private String startDate;
 
     }
 }

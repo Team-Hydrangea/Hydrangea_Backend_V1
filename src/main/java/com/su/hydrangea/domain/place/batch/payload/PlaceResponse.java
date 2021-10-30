@@ -29,8 +29,8 @@ public class PlaceResponse {
     @AllArgsConstructor
     public static class Body {
 
-        @XmlElementWrapper
-        @XmlElement
+        @XmlElementWrapper(name = "items")
+        @XmlElement(name = "item")
         private List<Item> items;
 
         @XmlElement
@@ -46,26 +46,14 @@ public class PlaceResponse {
         @XmlElement
         private String title;
 
-        @DateTimeFormat(pattern = "yyyyMMddhhmmss")
-        private LocalDateTime createdtime;
-
-        @DateTimeFormat(pattern = "yyyyMMddhhmms")
-        private LocalDateTime modifiedtime;
-
         @XmlElement
         private String firstimage;
 
         @XmlElement
-        private Double mapX;
+        private Double mapx;
 
         @XmlElement
-        private Double mapY;
-
-        @XmlElement
-        private String addr1;
-
-        @XmlElement
-        private String addr2;
+        private Double mapy;
 
         @XmlElement
         private String tel;

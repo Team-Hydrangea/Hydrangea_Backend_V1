@@ -17,9 +17,9 @@ public class Event {
 
     private String id;
 
-    private double latitude;
+    private Double latitude;
 
-    private double longitude;
+    private Double longitude;
 
     private String image;
 
